@@ -97,13 +97,13 @@
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: max-height 0.5s ease-out;
             background-color: #fafafa;
         }
 
         .accordion-item.active .accordion-content {
-            max-height: 300px;
-            transition: max-height 0.3s ease-in;
+            max-height: 1000px; // если что, тут менять размер если не помещается
+            transition: max-height 0.5s ease-in-out; // тут скорость
         }
 
         /* Внутренний отступ для содержимого */
@@ -187,6 +187,78 @@
             background-color: #e0e0e0;
         }
 
+        /* Стили для разделения 60/40 внутри плашки */
+        .split-layout {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .form-section {
+            flex: 1.5; /* 60% */
+            min-width: 200px;
+        }
+
+        .comment-section {
+            flex: 1; /* 40% */
+            min-width: 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-row {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-label {
+            width: 60px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .result-comment {
+            background-color: #e9ecef;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            border-radius: 4px;
+            min-height: 100px;
+            font-size: 14px;
+            color: #333;
+            word-break: break-word;
+        }
+
+        .copy-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .copy-button:hover {
+            background-color: #0056b3;
+        }
+
         /* Адаптация для мобильных */
         @media (max-width: 768px) {
             .two-columns {
@@ -194,6 +266,17 @@
             }
             .accordion-section, .sheet-section {
                 flex: auto;
+            }
+
+            .split-layout {
+                flex-direction: column;
+            }
+            .form-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .form-label {
+                width: auto;
             }
         }
     </style>
@@ -206,17 +289,44 @@
     <div class="two-columns">
         <!-- ЛЕВАЯ КОЛОНКА: Раскрывающиеся плашки -->
         <div class="accordion-section">
-            <!-- Плашка 1 -->
+            <!-- Плашка 1 (изменённая) -->
             <div class="accordion-item">
                 <div class="accordion-header">
                     Раздел 1
                 </div>
                 <div class="accordion-content">
                     <div class="accordion-inner">
-                        <div class="empty-field">
-                            [Пустое поле для контента раздела 1]
+                        <!-- Две колонки 60/40 внутри плашки -->
+                        <div class="split-layout">
+                            <!-- Левая часть 60%: 4 строки текст + поле ввода -->
+                            <div class="form-section">
+                                <div class="form-row">
+                                    <label class="form-label">Поле 1:</label>
+                                    <input type="text" class="form-input" id="field1" placeholder="Введите значение...">
+                                </div>
+                                <div class="form-row">
+                                    <label class="form-label">Поле 2:</label>
+                                    <input type="text" class="form-input" id="field2" placeholder="Введите значение...">
+                                </div>
+                                <div class="form-row">
+                                    <label class="form-label">Поле 3:</label>
+                                    <input type="text" class="form-input" id="field3" placeholder="Введите значение...">
+                                </div>
+                                <div class="form-row">
+                                    <label class="form-label">Поле 4:</label>
+                                    <input type="text" class="form-input" id="field4" placeholder="Введите значение...">
+                                </div>
+                            </div>
+
+                            <!-- Правая часть 40%: комментарий + кнопка копирования -->
+                            <div class="comment-section">
+                                <!-- КОММЕНТАРИЙ: Здесь будет результат обработки данных -->
+                                <div class="result-comment" id="resultComment">
+                                    Результат будет отображён здесь
+                                </div>
+                                <button class="copy-button" id="copyBtn" onclick="copyResult()">📋 Скопировать результат</button>
+                            </div>
                         </div>
-                        <!-- КОММЕНТАРИЙ: Сюда можно добавить любой контент для раздела 1 -->
                     </div>
                 </div>
             </div>
@@ -282,7 +392,7 @@
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', function() {
             const accordionItem = this.parentElement;
-            // если нужна будет только 1 плашка в моменте
+            // Раскомментируйте для режима "открывается только одна плашка"
             // document.querySelectorAll('.accordion-item').forEach(item => {
             //     if (item !== accordionItem) {
             //         item.classList.remove('active');
@@ -291,6 +401,47 @@
             accordionItem.classList.toggle('active');
         });
     });
+
+
+        // Функция для копирования результата
+    function copyResult() {
+        // Получаем текст из комментария
+        const resultText = document.getElementById('resultComment').innerText;
+        
+        // Копируем в буфер обмена
+        navigator.clipboard.writeText(resultText).then(() => {
+            // Визуальное уведомление
+            const copyBtn = document.getElementById('copyBtn');
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '✅ Скопировано!';
+            setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+            }, 2000);
+        }).catch(err => {
+            alert('Ошибка копирования: ' + err);
+        });
+    }
+
+    // Опционально: собираем данные из полей и обновляем комментарий
+    function updateResult() {
+        const field1 = document.getElementById('field1').value;
+        const field2 = document.getElementById('field2').value;
+        const field3 = document.getElementById('field3').value;
+        const field4 = document.getElementById('field4').value;
+        
+        const resultComment = document.getElementById('resultComment');
+        resultComment.innerHTML = `📝 Введённые данные:<br>
+        Поле 1: ${field1 || '—'}<br>
+        Поле 2: ${field2 || '—'}<br>
+        Поле 3: ${field3 || '—'}<br>
+        Поле 4: ${field4 || '—'}`;
+    }
+
+    // Добавляем слушатели событий на все поля ввода
+    document.querySelectorAll('.form-input').forEach(input => {
+        input.addEventListener('input', updateResult);
+    });
+
 </script>
 
 </body>
