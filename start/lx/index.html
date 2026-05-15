@@ -3,32 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>лх</title>
+    <title>LX - Плашки и таблица</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px 20px;
-            margin: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
         }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Две колонки */
+        .two-columns {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* Левая колонка - плашки (60%) */
+        .accordion-section {
+            flex: 2;
+            min-width: 250px;
+        }
+
+        /* Правая колонка - таблица (40%) */
+        .sheet-section {
+            flex: 1.5;
+            min-width: 300px;
+        }
+
+        /* Стили для раскрывающихся плашек */
+        .accordion-item {
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Заголовок плашки (кнопка) */
+        .accordion-header {
+            background-color: #f0f0f0;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            transition: background-color 0.3s;
+            user-select: none;
+            position: relative;
+        }
+
+        .accordion-header:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Маленький значок справа (+ / -) */
+        .accordion-header::after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .accordion-item.active .accordion-header::after {
+            content: '−';
+        }
+
+        /* Содержимое плашки (скрыто по умолчанию) */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #fafafa;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 300px;
+            transition: max-height 0.3s ease-in;
+        }
+
+        /* Внутренний отступ для содержимого */
+        .accordion-inner {
+            padding: 20px;
+        }
+
+        /* Поле внутри плашки (пока пустое) */
+        .empty-field {
+            min-height: 100px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Стили для области под Google Sheets */
+        .sheet-container {
+            background-color: #fafafa;
+            border: 2px solid #007bff;
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sheet-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #007bff;
+        }
+
+        .sheet-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            border-radius: 8px;
+            min-height: 400px;
+        }
+
+        .placeholder-text {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            padding: 40px;
+        }
+
+        .placeholder-text p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        /* Кнопка назад */
+        .back-button {
+            text-align: center;
+            margin-top: 40px;
+        }
+
         .button {
             display: inline-block;
             font-size: 18px;
             padding: 10px 20px;
-            margin: 10px;
             background-color: #f0f0f0;
             border: 1px solid #ccc;
             border-radius: 4px;
             text-decoration: none;
             color: black;
         }
+
         .button:hover {
             background-color: #e0e0e0;
+        }
+
+        /* Адаптация для мобильных */
+        @media (max-width: 768px) {
+            .two-columns {
+                flex-direction: column;
+            }
+            .accordion-section, .sheet-section {
+                flex: auto;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>лх</h1>
-    <a href="../" class="button">Перейти назад</a>
+
+<div class="container">
+    <h1>Разделы информации</h1>
+
+    <div class="two-columns">
+        <!-- ЛЕВАЯ КОЛОНКА: Раскрывающиеся плашки -->
+        <div class="accordion-section">
+            <!-- Плашка 1 -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    Раздел 1
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <div class="empty-field">
+                            [Пустое поле для контента раздела 1]
+                        </div>
+                        <!-- КОММЕНТАРИЙ: Сюда можно добавить любой контент для раздела 1 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Плашка 2 -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    Раздел 2
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <div class="empty-field">
+                            [Пустое поле для контента раздела 2]
+                        </div>
+                        <!-- КОММЕНТАРИЙ: Сюда можно добавить любой контент для раздела 2 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Плашка 3 -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    Раздел 3
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <div class="empty-field">
+                            [Пустое поле для контента раздела 3]
+                        </div>
+                        <!-- КОММЕНТАРИЙ: Сюда можно добавить любой контент для раздела 3 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ПРАВАЯ КОЛОНКА: Область под таблицу Google Sheets -->
+        <div class="sheet-section">
+            <div class="sheet-container">
+                <div class="sheet-header">
+                    Данные из Google Sheets
+                </div>
+                <div class="sheet-content">
+                    <div class="placeholder-text">
+                        <p> Здесь будет таблица из Google Sheets</p>
+                        <p>— Место для интеграции с Google Sheets API —</p>
+                        <p><small>После получения доступа к таблице, здесь отобразится интерактивная таблица</small></p>
+                        <!-- КОММЕНТАРИЙ: Сюда будет встроена таблица Google Sheets -->
+                        <!-- КОММЕНТАРИЙ: Для интеграции нужно будет добавить JavaScript код с использованием Google Sheets API -->
+                        <!-- КОММЕНТАРИЙ: Или использовать готовые решения: Tabletop.js, Sheet.best, или iframe от Google -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="back-button">
+    <a href="../../" class="button">⬅ Вернуться на главную</a>
+</div>
+
+<script>
+    // JavaScript для работы раскрывающихся плашек
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', function() {
+            const accordionItem = this.parentElement;
+            // если нужна будет только 1 плашка в моменте
+            // document.querySelectorAll('.accordion-item').forEach(item => {
+            //     if (item !== accordionItem) {
+            //         item.classList.remove('active');
+            //     }
+            // });
+            accordionItem.classList.toggle('active');
+        });
+    });
+</script>
+
 </body>
 </html>
