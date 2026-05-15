@@ -1,1 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карточки</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Сетка карточек: 4 колонки */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        /* Карточка */
+        .card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .card-link {
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Картинка внутри карточки */
+        .card-image {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* квадратная картинка */
+            object-fit: cover;
+            display: block;
+            background-color: #f0f0f0;
+        }
+
+        /* Подпись под картинкой */
+        .card-caption {
+            padding: 15px;
+            text-align: center;
+            font-size: 16px;
+            color: #555;
+            border-top: 1px solid #eee;
+            background-color: #fafafa;
+        }
+
+        /* Кнопка назад */
+        .back-button {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .button {
+            display: inline-block;
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .button:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Адаптация под планшеты и телефоны */
+        @media (max-width: 900px) {
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            h1 {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Наша коллекция</h1>
+
+    <div class="cards-grid">
+        <!-- Карточка 1 -->
+        <a href="lx/" class="card-link">
+            <div class="card">
+                <img src="https://placehold.co/300x300/FF6B6B/white?text=1" alt="Изображение 1" class="card-image">
+                <div class="card-caption">Подпись к карточке 1</div>
+            </div>
+        </a>
+        <!-- Карточка 2 -->
+        <div class="card">
+            <img src="https://placehold.co/300x300/4ECDC4/white?text=2" alt="Изображение 2" class="card-image">
+            <div class="card-caption">Подпись к карточке 2</div>
+        </div>
+        <!-- Карточка 3 -->
+        <div class="card">
+            <img src="https://placehold.co/300x300/45B7D1/white?text=3" alt="Изображение 3" class="card-image">
+            <div class="card-caption">Подпись к карточке 3</div>
+        </div>
+        <!-- Карточка 4 -->
+        <div class="card">
+            <img src="https://placehold.co/300x300/96CEB4/white?text=4" alt="Изображение 4" class="card-image">
+            <div class="card-caption">Подпись к карточке 4</div>
+        </div>
+        <!-- Карточка 5 -->
+        <div class="card">
+            <img src="https://placehold.co/300x300/FFEAA7/white?text=5" alt="Изображение 5" class="card-image">
+            <div class="card-caption">Подпись к карточке 5</div>
+        </div>
+        <!-- Карточка 6 -->
+        <div class="card">
+            <img src="https://placehold.co/300x300/DDA0DD/white?text=6" alt="Изображение 6" class="card-image">
+            <div class="card-caption">Подпись к карточке 6</div>
+        </div>
+        <!-- Карточка 7 -->
+        <div class="card">
+            <img src="https://placehold.co/300x300/F0E68C/white?text=7" alt="Изображение 7" class="card-image">
+            <div class="card-caption">Подпись к карточке 7</div>
+        </div>
+        <!-- Карточка 8 -->
+        <div class="card">
+            <img src="https://placehold.co/300x300/87CEEB/white?text=8" alt="Изображение 8" class="card-image">
+            <div class="card-caption">Подпись к карточке 8</div>
+        </div>
+        <!-- Карточка 9 -->
+        <div class="card">
+            <img src="https://placehold.co/300x300/FFB6C1/white?text=9" alt="Изображение 9" class="card-image">
+            <div class="card-caption">Подпись к карточке 9</div>
+        </div>
+        <!-- Карточка 10 -->
+        <div class="card">
+            <img src="https://placehold.co/300x300/98FB98/white?text=10" alt="Изображение 10" class="card-image">
+            <div class="card-caption">Подпись к карточке 10</div>
+        </div>
+        <!-- Карточка 11 -->
+        <div class="card">
+            <img src="https://placehold.co/300x300/FFD700/white?text=11" alt="Изображение 11" class="card-image">
+            <div class="card-caption">Подпись к карточке 11</div>
+        </div>
+        <!-- Карточка 12 -->
+        <div class="card">
+            <img src="https://placehold.co/300x300/CD5C5C/white?text=12" alt="Изображение 12" class="card-image">
+            <div class="card-caption">Подпись к карточке 12</div>
+        </div>
+    </div>
+</div>
+
+<div class="back-button">
+    <a href="../" class="button">⬅ Вернуться на главную</a>
+</div>
+
+</body>
+</html>
