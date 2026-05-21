@@ -207,6 +207,18 @@
             gap: 15px;
         }
 
+        select.form-input {
+            color: #999;
+        }
+
+        select.form-input option {
+            color: #000;
+        }
+
+        select.form-input:not([multiple]) option:first-child {
+            color: #999;
+        }
+
         .form-row {
             margin-bottom: 15px;
             display: flex;
@@ -231,6 +243,12 @@
         .form-input:focus {
             outline: none;
             border-color: #007bff;
+        }
+
+        /* Подсветка незаполненных полей */
+        .form-input.error {
+            border-color: #ff0000;
+            background-color: #fff0f0;
         }
 
         .result-comment {
@@ -289,10 +307,10 @@
     <div class="two-columns">
         <!-- ЛЕВАЯ КОЛОНКА: Раскрывающиеся плашки -->
         <div class="accordion-section">
-            <!-- Плашка 1 (изменённая) -->
+            <!-- Плашка 1 -->
             <div class="accordion-item">
                 <div class="accordion-header">
-                    Раздел 1
+                    Запись в отряд
                 </div>
                 <div class="accordion-content">
                     <div class="accordion-inner">
@@ -301,21 +319,18 @@
                             <!-- Левая часть 60%: 4 строки текст + поле ввода -->
                             <div class="form-section">
                                 <div class="form-row">
-                                    <label class="form-label">Поле 1:</label>
-                                    <input type="text" class="form-input" id="field1" placeholder="Введите значение...">
-                                </div>
+                                    <label class="form-label">Ваш ID:</label>
+                                    <input type="text" class="form-input" id="field1" inputmode="numeric" pattern="[0-9]{1,7}" maxlength="7">
+                                </div> 
                                 <div class="form-row">
-                                    <label class="form-label">Поле 2:</label>
-                                    <input type="text" class="form-input" id="field2" placeholder="Введите значение...">
-                                </div>
-                                <div class="form-row">
-                                    <label class="form-label">Поле 3:</label>
-                                    <input type="text" class="form-input" id="field3" placeholder="Введите значение...">
-                                </div>
-                                <div class="form-row">
-                                    <label class="form-label">Поле 4:</label>
-                                    <input type="text" class="form-input" id="field4" placeholder="Введите значение...">
-                                </div>
+                                    <label class="form-label">Команда:</label>
+                                    <select class="form-input" id="field2" style="background-color: white;"> 
+                                        <option value="" disabled selected hidden>– Выберите команду –</option>
+                                        <option value="Тучки">Тучки</option>
+                                        <option value="Подсолнушки">Подсолнушки</option>
+                                        <option value="Лучики">Лучики</option>
+                                    </select>
+                               </div>
                             </div>
 
                             <!-- Правая часть 40%: комментарий + кнопка копирования -->
@@ -341,7 +356,22 @@
                         <div class="empty-field">
                             [Пустое поле для контента раздела 2]
                         </div>
-                        <!-- КОММЕНТАРИЙ: Сюда можно добавить любой контент для раздела 2 -->
+                        <!-- КОММЕНТАРИЙ: Сюда можно добавить любой контент для раздела 2 
+
+
+
+
+
+
+                                <div class="form-row" style="flex-wrap: wrap;">
+                                    <label class="form-label">Диапазон:</label>
+                                    <div style="display: flex; align-items: center; gap: 8px; flex: 1; flex-wrap: wrap;">
+                                        <input type="text" class="form-input" id="field3_left" placeholder="от" style="flex: 1; min-width: 60px;">
+                                        <span style="color: #666; font-weight: 500; white-space: nowrap;">→ до →</span>
+                                        <input type="text" class="form-input" id="field3_right" placeholder="до" style="flex: 1; min-width: 60px;">
+                                    </div>
+                                </div> -->
+
                     </div>
                 </div>
             </div>
@@ -402,15 +432,93 @@
         });
     });
 
-
-        // Функция для копирования результата
-    function copyResult() {
-        // Получаем текст из комментария
-        const resultText = document.getElementById('resultComment').innerText;
+    // Получаем элементы
+    const numberField = document.getElementById('field1');
+    const selectField = document.getElementById('field2');
+    const resultComment = document.getElementById('resultComment');
+    
+    // Функция фильтрации: оставляет только цифры для поля ID
+    function enforceNumericInput(e) {
+        const input = e.target;
+        let rawValue = input.value;
+        let filtered = rawValue.replace(/\D/g, '');
+        if (filtered.length > 7) {
+        filtered = filtered.slice(0, 7);
+        input.value = filtered;
+        }
+    
+        if (filtered !== rawValue) {
+            input.value = filtered;
+        }
+        updateResult();
+    }
+    
+    // Функция обновления результата
+    function updateResult() {
+        const idValue = numberField.value || '—';
+        const selectedText = selectField.options[selectField.selectedIndex]?.text || '—';
+        const selectedValue = selectField.value;
         
-        // Копируем в буфер обмена
+        let selectDisplay = selectedValue ? selectedValue : '—';
+        
+        // сам отчет
+        resultComment.innerHTML = `<strong>Запись в отряд</strong><br><br>
+        ID: ${idValue}<br>
+        Команда: ${selectDisplay}`;
+    }
+    
+    // Добавляем обработчики
+    numberField.addEventListener('input', enforceNumericInput);
+    numberField.addEventListener('blur', () => {
+        let clean = numberField.value.replace(/\D/g, '');
+        if (clean !== numberField.value) numberField.value = clean;
+        updateResult();
+    });
+    
+    selectField.addEventListener('change', updateResult);
+    
+    // Функция подсветки ошибок
+    function highlightEmptyFields() {
+        const idValue = numberField.value.trim();
+        const teamValue = selectField.value;
+    
+        if (idValue === '') {
+            numberField.classList.add('error');
+        } else {
+            numberField.classList.remove('error');
+        }
+    
+        if (teamValue === '') {
+            selectField.classList.add('error');
+        } else {
+            selectField.classList.remove('error');
+        }
+    }
+
+    // Функция копирования
+    window.copyResult = function() {
+        // Получаем значения полей
+        const idValue = numberField.value.trim();
+        const teamValue = selectField.value;
+    
+        // Проверяем заполненность
+        if (idValue === '') {
+            alert('⚠️ Ошибка: Поле "Ваш ID" не заполнено!\nПожалуйста, введите ваш ID.');
+            numberField.focus();
+            highlightEmptyFields();
+            return;
+        }
+    
+        if (teamValue === '') {
+            alert('⚠️ Ошибка: Поле "Команда" не выбрано!\nПожалуйста, выберите команду.');
+            selectField.focus();
+            highlightEmptyFields();
+            return; 
+        } 
+    
+        // Если всё заполнено - копируем
+        const resultText = document.getElementById('resultComment').innerText;
         navigator.clipboard.writeText(resultText).then(() => {
-            // Визуальное уведомление
             const copyBtn = document.getElementById('copyBtn');
             const originalText = copyBtn.innerHTML;
             copyBtn.innerHTML = '✅ Скопировано!';
@@ -418,31 +526,24 @@
                 copyBtn.innerHTML = originalText;
             }, 2000);
         }).catch(err => {
-            alert('Ошибка копирования: ' + err);
+            alert('❌ Ошибка копирования: ' + err);
         });
     }
+    
+    // Инициализация
+    updateResult();
 
-    // Опционально: собираем данные из полей и обновляем комментарий
-    function updateResult() {
-        const field1 = document.getElementById('field1').value;
-        const field2 = document.getElementById('field2').value;
-        const field3 = document.getElementById('field3').value;
-        const field4 = document.getElementById('field4').value;
-        
-        const resultComment = document.getElementById('resultComment');
-        resultComment.innerHTML = `📝 Введённые данные:<br>
-        Поле 1: ${field1 || '—'}<br>
-        Поле 2: ${field2 || '—'}<br>
-        Поле 3: ${field3 || '—'}<br>
-        Поле 4: ${field4 || '—'}`;
-    }
+    const selectElement = document.getElementById('field2');
+    selectElement.style.color = '#999';
 
-    // Добавляем слушатели событий на все поля ввода
-    document.querySelectorAll('.form-input').forEach(input => {
-        input.addEventListener('input', updateResult);
+    selectElement.addEventListener('change', function() {
+        if (this.value === '') {
+            this.style.color = '#999';
+        } else {
+            this.style.color = '#000';
+        }
     });
-
+    
 </script>
-
 </body>
 </html>
