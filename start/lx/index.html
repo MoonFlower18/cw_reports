@@ -192,11 +192,15 @@
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
+            align-items: stretch; /* Растягиваем колонки по высоте */
         }
 
         .form-section {
             flex: 1.5; /* 60% */
             min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Распределяем содержимое */
         }
 
         .comment-section {
@@ -204,7 +208,22 @@
             min-width: 150px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            justify-content: space-between; /* Распределяем содержимое */
+        }
+
+        /* Фиксируем высоту блока с результатом */
+        .comment-section .result-comment {
+            flex: 1;
+            min-height: 120px;
+        }
+
+        /* Кнопки на одной линии */
+        .form-section .clear-button {
+            margin-top: auto; /* Прижимаем к низу */
+        }
+
+        .comment-section .copy-button {
+            margin-top: auto; /* Прижимаем к низу */
         }
 
         select.form-input {
@@ -262,6 +281,43 @@
             word-break: break-word;
         }
 
+        /* Стили для строки с полем ввода */
+        .form-row-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .form-row-inline .form-label {
+            width: 70px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-row-inline .form-input {
+            flex: 1;
+        }
+
+        /* Кнопка очистки - такой же размер как кнопка копирования */
+        .clear-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .clear-button:hover {
+            background-color: #c82333;
+        }
+
+        /* Кнопка копирования - полная ширина */
         .copy-button {
             background-color: #007bff;
             color: white;
@@ -271,32 +327,76 @@
             cursor: pointer;
             font-size: 14px;
             transition: background-color 0.3s;
+            width: 100%;
         }
 
         .copy-button:hover {
             background-color: #0056b3;
         }
 
+        .comment-section {
+            flex: 1;
+            min-width: 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .comment-section .result-comment {
+            flex: 1;
+        }
+
+        /* Стили для предпросмотра BB-кода */
+        .result-comment code {
+            background: #f4f4f4;
+            padding: 8px;
+            display: block;
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: monospace;
+            word-break: break-all;
+            white-space: pre-wrap;
+        }
+
+        .result-comment a {
+            color: #007bff;
+            text-decoration: none;
+            border-bottom: 1px dashed #007bff;
+        }
+
+        .result-comment a:hover {
+            text-decoration: underline;
+        }
+
+
         /* Адаптация для мобильных */
         @media (max-width: 768px) {
-            .two-columns {
-                flex-direction: column;
-            }
-            .accordion-section, .sheet-section {
-                flex: auto;
-            }
-
-            .split-layout {
-                flex-direction: column;
-            }
-            .form-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .form-label {
-                width: auto;
-            }
+        .two-columns {
+            flex-direction: column;
         }
+
+        .accordion-section, .sheet-section {
+            flex: auto;
+        }
+
+        .split-layout {
+           flex-direction: column;
+        }
+    
+        .form-row-inline {
+            flex-wrap: wrap;
+        }
+    
+        .form-row-inline .form-label {
+            width: 100%;
+        }
+    
+        /* На мобильных убираем прижимание к низу */
+        .form-section .clear-button,
+        .comment-section .copy-button {
+            margin-top: 10px;
+        }
+    }
     </style>
 </head>
 <body>
@@ -316,13 +416,14 @@
                     <div class="accordion-inner">
                         <!-- Две колонки 60/40 внутри плашки -->
                         <div class="split-layout">
-                            <!-- Левая часть 60%: 4 строки текст + поле ввода -->
+                            <!-- Левая часть: поля ввода -->
                             <div class="form-section">
-                                <div class="form-row">
+                                <div class="form-row-inline">
                                     <label class="form-label">Ваш ID:</label>
-                                    <input type="text" class="form-input" id="field1" inputmode="numeric" pattern="[0-9]{1,7}" maxlength="7">
-                                </div> 
-                                <div class="form-row">
+                                    <input type="text" class="form-input" id="field1" inputmode="numeric" pattern="[0-9]{1,7}" maxlength="7" placeholder="до 7 цифр">
+                                </div>
+    
+                                <div class="form-row-inline">
                                     <label class="form-label">Команда:</label>
                                     <select class="form-input" id="field2" style="background-color: white;"> 
                                         <option value="" disabled selected hidden>– Выберите команду –</option>
@@ -330,15 +431,18 @@
                                         <option value="Подсолнушки">Подсолнушки</option>
                                         <option value="Лучики">Лучики</option>
                                     </select>
-                               </div>
+                                </div>
+    
+                                <!-- Кнопка очистки под полями -->
+                                <button class="clear-button" id="clearBtn" onclick="clearForm()">🗑 Очистить всё</button>
                             </div>
 
-                            <!-- Правая часть 40%: комментарий + кнопка копирования -->
+                            <!-- Правая часть: комментарий + кнопка копирования -->
                             <div class="comment-section">
-                                <!-- КОММЕНТАРИЙ: Здесь будет результат обработки данных -->
                                 <div class="result-comment" id="resultComment">
                                     Результат будет отображён здесь
                                 </div>
+                                <!-- Кнопка копирования под предпросмотром -->
                                 <button class="copy-button" id="copyBtn" onclick="copyResult()">📋 Скопировать результат</button>
                             </div>
                         </div>
@@ -453,18 +557,71 @@
         updateResult();
     }
     
+    // Функция для склонения названий команд
+    function declineTeamName(teamName) {
+        const declensions = {
+            'Тучки': 'Тучек',
+            'Подсолнушки': 'Подсолнушек',
+            'Лучики': 'Лучиков'
+        };
+    
+        return declensions[teamName] || teamName;
+    }
+
     // Функция обновления результата
     function updateResult() {
-        const idValue = numberField.value || '—';
-        const selectedText = selectField.options[selectField.selectedIndex]?.text || '—';
+        const idValue = numberField.value || '?';
         const selectedValue = selectField.value;
-        
-        let selectDisplay = selectedValue ? selectedValue : '—';
-        
-        // сам отчет
-        resultComment.innerHTML = `<strong>Запись в отряд</strong><br><br>
-        ID: ${idValue}<br>
-        Команда: ${selectDisplay}`;
+       let selectDisplay = selectedValue ? selectedValue : '?';
+    
+        // Получаем склоненную форму для BB-кода и предпросмотра
+        const declinedTeam = selectedValue ? declineTeamName(selectedValue) : '?';
+    
+        // Генерируем BB-код (со склонением)
+        const bbCode = `Я, [link${idValue}] (${idValue}), хочу стать жителем Лучезарного Хуторка и принять участие в команде ${declinedTeam}`;
+    
+        // Показываем BB-код в предпросмотре (как текст)
+        resultComment.innerHTML = `
+            <div style="margin-bottom: 10px;">
+                <strong>📝 BB-код для копирования:</strong><br>
+                <code style="background: #fff; padding: 8px; display: block; border-radius: 4px; font-size: 12px; word-break: break-all;">${escapeHtml(bbCode)}</code>
+            </div>
+            <div style="border-top: 1px solid #ddd; padding-top: 10px; margin-top: 5px;">
+                <strong>👀 Как это будет выглядеть на сайте:</strong><br>
+                <div style="background: white; padding: 10px; border-radius: 4px; margin-top: 5px; font-style: normal;">
+                    ${renderBBCode(bbCode)}
+                </div>
+            </div>
+        `;
+    
+        // Сохраняем BB-код в атрибут для копирования
+        resultComment.setAttribute('data-bbcode', bbCode);
+    }
+
+    // Функция для экранирования HTML (чтобы код отображался как текст)
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Функция для рендеринга BB-кода в HTML (предпросмотр)
+    function renderBBCode(bbCode) {
+        let html = bbCode;
+    
+        // Заменяем [linkN] (N - число) на ссылку
+        html = html.replace(/\[link(\d+)\]/g, '<a href="#" style="color: #007bff; text-decoration: none; border-bottom: 1px dashed #007bff;">профиль $1</a>');
+    
+        // Заменяем [b]...[/b] на жирный текст (если понадобится)
+        html = html.replace(/\[b\](.*?)\[\/b\]/g, '<strong>$1</strong>');
+    
+        // Заменяем [i]...[/i] на курсив
+        html = html.replace(/\[i\](.*?)\[\/i\]/g, '<em>$1</em>');
+    
+        // Заменяем [u]...[/u] на подчеркивание
+        html = html.replace(/\[u\](.*?)\[\/u\]/g, '<u>$1</u>');
+    
+        return html;
     }
     
     // Добавляем обработчики
@@ -495,12 +652,12 @@
         }
     }
 
-    // Функция копирования
+    // Функция копирования (копирует BB-код)
     window.copyResult = function() {
         // Получаем значения полей
         const idValue = numberField.value.trim();
         const teamValue = selectField.value;
-    
+
         // Проверяем заполненность
         if (idValue === '') {
             alert('⚠️ Ошибка: Поле "Ваш ID" не заполнено!\nПожалуйста, введите ваш ID.');
@@ -508,20 +665,22 @@
             highlightEmptyFields();
             return;
         }
-    
+
         if (teamValue === '') {
             alert('⚠️ Ошибка: Поле "Команда" не выбрано!\nПожалуйста, выберите команду.');
             selectField.focus();
             highlightEmptyFields();
             return; 
         } 
+
+        // Получаем BB-код из атрибута
+        const bbCode = resultComment.getAttribute('data-bbcode');
     
-        // Если всё заполнено - копируем
-        const resultText = document.getElementById('resultComment').innerText;
-        navigator.clipboard.writeText(resultText).then(() => {
+        // Копируем BB-код
+        navigator.clipboard.writeText(bbCode).then(() => {
             const copyBtn = document.getElementById('copyBtn');
             const originalText = copyBtn.innerHTML;
-            copyBtn.innerHTML = '✅ Скопировано!';
+            copyBtn.innerHTML = '✅ BB-код скопирован!';
             setTimeout(() => {
                 copyBtn.innerHTML = originalText;
             }, 2000);
@@ -543,6 +702,33 @@
             this.style.color = '#000';
         }
     });
+
+    // Функция очистки всех полей
+    function clearForm() {
+        // Очищаем поле ID
+        numberField.value = '';
+    
+        // Сбрасываем выбор команды
+        selectField.value = '';
+    
+        // Сбрасываем цвет select на серый
+        selectField.style.color = '#999';
+    
+        // Убираем подсветку ошибок
+        numberField.classList.remove('error');
+        selectField.classList.remove('error');
+    
+        // Обновляем результат
+        updateResult();
+    
+        // Визуальное уведомление
+        const clearBtn = document.getElementById('clearBtn');
+        const originalText = clearBtn.innerHTML;
+        clearBtn.innerHTML = '✅ Очищено!';
+        setTimeout(() => {
+            clearBtn.innerHTML = originalText;
+        }, 1500);
+    }
     
 </script>
 </body>
