@@ -196,7 +196,7 @@
         }
 
         .form-section {
-            flex: 1.5; /* 60% */
+            flex: 1; /* 60% */
             min-width: 200px;
             display: flex;
             flex-direction: column;
@@ -453,29 +453,47 @@
             <!-- Плашка 2 -->
             <div class="accordion-item">
                 <div class="accordion-header">
-                    Раздел 2
+                    Запрос квеста в ЛС лидера
                 </div>
                 <div class="accordion-content">
                     <div class="accordion-inner">
-                        <div class="empty-field">
-                            [Пустое поле для контента раздела 2]
+                        <div class="split-layout">
+                            <div class="form-section">
+                                <div class="form-row-inline">
+                                    <label class="form-label">Ваш ID:</label>
+                                    <input type="text" class="form-input" id="field1_2" inputmode="numeric" pattern="[0-9]{1,7}" maxlength="7" placeholder="до 7 цифр">
+                                </div>
+
+                                <div class="form-row-inline">
+                                    <label class="form-label">Команда:</label>
+                                    <select class="form-input" id="field2_2" style="background-color: white;"> 
+                                        <option value="" disabled selected hidden>– Выберите команду –</option>
+                                        <option value="Тучки">Тучки</option>
+                                        <option value="Подсолнушки">Подсолнушки</option>
+                                        <option value="Лучики">Лучики</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-row-inline">
+                                    <label class="form-label">Тип квеста:</label>
+                                    <select class="form-input" id="field3_2" style="background-color: white;"> 
+                                        <option value="" disabled selected hidden>– Выберите сложность –</option>
+                                        <option value="Лёгкий">Лёгкий</option>
+                                        <option value="Средний">Средний</option>
+                                        <option value="Тяжёлый">Тяжёлый</option>
+                                    </select>
+                                </div>
+                    
+                                <button class="clear-button">🗑 Очистить всё</button>
+                            </div>
+
+                            <div class="comment-section">
+                                <div class="result-comment">
+                                    Результат будет отображён здесь
+                                </div>
+                                <button class="copy-button">📋 Скопировать результат</button>
+                            </div>
                         </div>
-                        <!-- КОММЕНТАРИЙ: Сюда можно добавить любой контент для раздела 2 
-
-
-
-
-
-
-                                <div class="form-row" style="flex-wrap: wrap;">
-                                    <label class="form-label">Диапазон:</label>
-                                    <div style="display: flex; align-items: center; gap: 8px; flex: 1; flex-wrap: wrap;">
-                                        <input type="text" class="form-input" id="field3_left" placeholder="от" style="flex: 1; min-width: 60px;">
-                                        <span style="color: #666; font-weight: 500; white-space: nowrap;">→ до →</span>
-                                        <input type="text" class="form-input" id="field3_right" placeholder="до" style="flex: 1; min-width: 60px;">
-                                    </div>
-                                </div> -->
-
                     </div>
                 </div>
             </div>
@@ -490,7 +508,19 @@
                         <div class="empty-field">
                             [Пустое поле для контента раздела 3]
                         </div>
-                        <!-- КОММЕНТАРИЙ: Сюда можно добавить любой контент для раздела 3 -->
+                        <!-- КОММЕНТАРИЙ: Сюда можно добавить любой контент для раздела 3 
+
+
+<div class="form-row" style="flex-wrap: wrap;">
+                                    <label class="form-label">Диапазон:</label>
+                                    <div style="display: flex; align-items: center; gap: 8px; flex: 1; flex-wrap: wrap;">
+                                        <input type="text" class="form-input" id="field3_left" placeholder="от" style="flex: 1; min-width: 60px;">
+                                        <span style="color: #666; font-weight: 500; white-space: nowrap;">→ до →</span>
+                                        <input type="text" class="form-input" id="field3_right" placeholder="до" style="flex: 1; min-width: 60px;">
+                                    </div>
+                                </div> 
+
+-->
                     </div>
                 </div>
             </div>
@@ -522,39 +552,31 @@
 </div>
 
 <script>
-    // JavaScript для работы раскрывающихся плашек
+    // ========== УНИВЕРСАЛЬНЫЕ ФУНКЦИИ ==========
+    
+    // Раскрывающиеся плашки
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', function() {
             const accordionItem = this.parentElement;
-            // Раскомментируйте для режима "открывается только одна плашка"
-            // document.querySelectorAll('.accordion-item').forEach(item => {
-            //     if (item !== accordionItem) {
-            //         item.classList.remove('active');
-            //     }
-            // });
             accordionItem.classList.toggle('active');
         });
     });
-
-    // Получаем элементы
-    const numberField = document.getElementById('field1');
-    const selectField = document.getElementById('field2');
-    const resultComment = document.getElementById('resultComment');
     
-    // Функция фильтрации: оставляет только цифры для поля ID
-    function enforceNumericInput(e) {
-        const input = e.target;
-        let rawValue = input.value;
-        let filtered = rawValue.replace(/\D/g, '');
-        if (filtered.length > 7) {
-        filtered = filtered.slice(0, 7);
-        input.value = filtered;
-        }
+    // Функция для экранирования HTML
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
     
-        if (filtered !== rawValue) {
-            input.value = filtered;
-        }
-        updateResult();
+    // Функция для рендеринга BB-кода в HTML
+    function renderBBCode(bbCode) {
+        let html = bbCode;
+        html = html.replace(/\[link(\d+)\]/g, '<a href="#" style="color: #007bff; text-decoration: none; border-bottom: 1px dashed #007bff;">профиль $1</a>');
+        html = html.replace(/\[b\](.*?)\[\/b\]/g, '<strong>$1</strong>');
+        html = html.replace(/\[i\](.*?)\[\/i\]/g, '<em>$1</em>');
+        html = html.replace(/\[u\](.*?)\[\/u\]/g, '<u>$1</u>');
+        return html;
     }
     
     // Функция для склонения названий команд
@@ -564,172 +586,250 @@
             'Подсолнушки': 'Подсолнушек',
             'Лучики': 'Лучиков'
         };
-    
         return declensions[teamName] || teamName;
     }
-
-    // Функция обновления результата
-    function updateResult() {
-        const idValue = numberField.value || '?';
-        const selectedValue = selectField.value;
-       let selectDisplay = selectedValue ? selectedValue : '?';
     
-        // Получаем склоненную форму для BB-кода и предпросмотра
-        const declinedTeam = selectedValue ? declineTeamName(selectedValue) : '?';
-    
-        // Генерируем BB-код (со склонением)
-        const bbCode = `Я, [link${idValue}] (${idValue}), хочу стать жителем Лучезарного Хуторка и принять участие в команде ${declinedTeam}`;
-    
-        // Показываем BB-код в предпросмотре (как текст)
-        resultComment.innerHTML = `
-            <div style="margin-bottom: 10px;">
-                <strong>📝 BB-код для копирования:</strong><br>
-                <code style="background: #fff; padding: 8px; display: block; border-radius: 4px; font-size: 12px; word-break: break-all;">${escapeHtml(bbCode)}</code>
-            </div>
-            <div style="border-top: 1px solid #ddd; padding-top: 10px; margin-top: 5px;">
-                <strong>👀 Как это будет выглядеть на сайте:</strong><br>
-                <div style="background: white; padding: 10px; border-radius: 4px; margin-top: 5px; font-style: normal;">
-                    ${renderBBCode(bbCode)}
-                </div>
-            </div>
-        `;
-    
-        // Сохраняем BB-код в атрибут для копирования
-        resultComment.setAttribute('data-bbcode', bbCode);
-    }
-
-    // Функция для экранирования HTML (чтобы код отображался как текст)
-    function escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    // Функция для рендеринга BB-кода в HTML (предпросмотр)
-    function renderBBCode(bbCode) {
-        let html = bbCode;
-    
-        // Заменяем [linkN] (N - число) на ссылку
-        html = html.replace(/\[link(\d+)\]/g, '<a href="#" style="color: #007bff; text-decoration: none; border-bottom: 1px dashed #007bff;">профиль $1</a>');
-    
-        // Заменяем [b]...[/b] на жирный текст (если понадобится)
-        html = html.replace(/\[b\](.*?)\[\/b\]/g, '<strong>$1</strong>');
-    
-        // Заменяем [i]...[/i] на курсив
-        html = html.replace(/\[i\](.*?)\[\/i\]/g, '<em>$1</em>');
-    
-        // Заменяем [u]...[/u] на подчеркивание
-        html = html.replace(/\[u\](.*?)\[\/u\]/g, '<u>$1</u>');
-    
-        return html;
-    }
-    
-    // Добавляем обработчики
-    numberField.addEventListener('input', enforceNumericInput);
-    numberField.addEventListener('blur', () => {
-        let clean = numberField.value.replace(/\D/g, '');
-        if (clean !== numberField.value) numberField.value = clean;
-        updateResult();
-    });
-    
-    selectField.addEventListener('change', updateResult);
-    
-    // Функция подсветки ошибок
-    function highlightEmptyFields() {
-        const idValue = numberField.value.trim();
-        const teamValue = selectField.value;
-    
-        if (idValue === '') {
-            numberField.classList.add('error');
-        } else {
-            numberField.classList.remove('error');
+    // ========== КЛАСС ДЛЯ УПРАВЛЕНИЯ ПЛАШКОЙ ==========
+    class AccordionForm {
+        constructor(container, config) {
+            this.container = container;
+            this.config = config;
+            this.init();
         }
-    
-        if (teamValue === '') {
-            selectField.classList.add('error');
-        } else {
-            selectField.classList.remove('error');
+        
+        init() {
+            // Находим все поля по ID
+            this.fields = {};
+            for (const [key, id] of Object.entries(this.config.fieldIds)) {
+                this.fields[key] = this.container.querySelector(`#${id}`);
+            }
+            
+            // Находим элементы результата
+            this.resultComment = this.container.querySelector('.result-comment');
+            this.copyBtn = this.container.querySelector('.copy-button');
+            this.clearBtn = this.container.querySelector('.clear-button');
+            
+            // Добавляем обработчики
+            if (this.fields.idField) {
+                this.fields.idField.addEventListener('input', (e) => this.enforceNumericInput(e));
+                this.fields.idField.addEventListener('blur', () => this.handleIdBlur());
+            }
+            
+            if (this.fields.teamField) {
+                this.fields.teamField.addEventListener('change', () => this.updateResult());
+                this.fields.teamField.style.color = '#999';
+                this.fields.teamField.addEventListener('change', function() {
+                    this.style.color = this.value === '' ? '#999' : '#000';
+                });
+            }
+            
+            if (this.fields.taskField) {
+                this.fields.taskField.addEventListener('change', () => this.updateResult());
+                this.fields.taskField.style.color = '#999';
+                this.fields.taskField.addEventListener('change', function() {
+                    this.style.color = this.value === '' ? '#999' : '#000';
+                });
+            }
+            
+            // Кнопка копирования
+            if (this.copyBtn) {
+                this.copyBtn.onclick = () => this.copyResult();
+            }
+            
+            // Кнопка очистки
+            if (this.clearBtn) {
+                this.clearBtn.onclick = () => this.clearForm();
+            }
+            
+            // Инициализация
+            this.updateResult();
         }
-    }
-
-    // Функция копирования (копирует BB-код)
-    window.copyResult = function() {
-        // Получаем значения полей
-        const idValue = numberField.value.trim();
-        const teamValue = selectField.value;
-
-        // Проверяем заполненность
-        if (idValue === '') {
-            alert('⚠️ Ошибка: Поле "Ваш ID" не заполнено!\nПожалуйста, введите ваш ID.');
-            numberField.focus();
-            highlightEmptyFields();
-            return;
+        
+        enforceNumericInput(e) {
+            const input = e.target;
+            let rawValue = input.value;
+            let filtered = rawValue.replace(/\D/g, '');
+            if (filtered.length > 7) {
+                filtered = filtered.slice(0, 7);
+            }
+            if (filtered !== rawValue) {
+                input.value = filtered;
+            }
+            this.updateResult();
         }
-
-        if (teamValue === '') {
-            alert('⚠️ Ошибка: Поле "Команда" не выбрано!\nПожалуйста, выберите команду.');
-            selectField.focus();
-            highlightEmptyFields();
-            return; 
-        } 
-
-        // Получаем BB-код из атрибута
-        const bbCode = resultComment.getAttribute('data-bbcode');
-    
-        // Копируем BB-код
-        navigator.clipboard.writeText(bbCode).then(() => {
-            const copyBtn = document.getElementById('copyBtn');
-            const originalText = copyBtn.innerHTML;
-            copyBtn.innerHTML = '✅ BB-код скопирован!';
+        
+        handleIdBlur() {
+            let clean = this.fields.idField.value.replace(/\D/g, '');
+            if (clean.length > 7) clean = clean.slice(0, 7);
+            if (clean !== this.fields.idField.value) this.fields.idField.value = clean;
+            this.updateResult();
+        }
+        
+        updateResult() {
+            const idValue = this.fields.idField?.value || '?';
+            const teamValue = this.fields.teamField?.value || '';
+            const taskValue = this.fields.taskField?.value || '';
+            
+            let bbCode = '';
+            
+            // Генерируем BB-код по шаблону из конфига
+            if (this.config.template === 'enlist') {
+                const declinedTeam = teamValue ? declineTeamName(teamValue) : '?';
+                bbCode = `Я, [link${idValue}] (${idValue}), хочу стать жителем Лучезарного Хуторка и принять участие в команде ${declinedTeam}`;
+            } 
+            else if (this.config.template === 'quest') {
+                bbCode = `Я, [link${idValue}] (${idValue}), хочу взять ${taskValue} квест у лидера команды ${teamValue}`;
+            }
+            
+            // Обновляем отображение
+            if (this.resultComment) {
+                this.resultComment.innerHTML = `
+                    <div style="margin-bottom: 10px;">
+                        <strong>📝 BB-код для копирования:</strong><br>
+                        <code style="background: #fff; padding: 8px; display: block; border-radius: 4px; font-size: 12px; word-break: break-all;">${escapeHtml(bbCode)}</code>
+                    </div>
+                    <div style="border-top: 1px solid #ddd; padding-top: 10px; margin-top: 5px;">
+                        <strong>👀 Как это будет выглядеть на сайте:</strong><br>
+                        <div style="background: white; padding: 10px; border-radius: 4px; margin-top: 5px; font-style: normal;">
+                            ${renderBBCode(bbCode)}
+                        </div>
+                    </div>
+                `;
+                this.resultComment.setAttribute('data-bbcode', bbCode);
+            }
+        }
+        
+        copyResult() {
+            const idValue = this.fields.idField?.value.trim() || '';
+            const teamValue = this.fields.teamField?.value || '';
+            const taskValue = this.fields.taskField?.value || '';
+            
+            // Проверки в зависимости от шаблона
+            if (this.config.template === 'enlist') {
+                if (idValue === '') {
+                    alert('⚠️ Ошибка: Поле "Ваш ID" не заполнено!');
+                    this.fields.idField?.focus();
+                    this.highlightEmptyFields();
+                    return;
+                }
+                if (teamValue === '') {
+                    alert('⚠️ Ошибка: Поле "Команда" не выбрано!');
+                    this.fields.teamField?.focus();
+                    this.highlightEmptyFields();
+                    return;
+                }
+            }
+            else if (this.config.template === 'quest') {
+                if (idValue === '') {
+                    alert('⚠️ Ошибка: Поле "Ваш ID" не заполнено!');
+                    this.fields.idField?.focus();
+                    this.highlightEmptyFields();
+                    return;
+                }
+                if (teamValue === '') {
+                    alert('⚠️ Ошибка: Поле "Команда" не выбрано!');
+                    this.fields.teamField?.focus();
+                    this.highlightEmptyFields();
+                    return;
+                }
+                if (taskValue === '') {
+                    alert('⚠️ Ошибка: Поле "Тип квеста" не выбрано!');
+                    this.fields.taskField?.focus();
+                    this.highlightEmptyFields();
+                    return;
+                }
+            }
+            
+            const bbCode = this.resultComment?.getAttribute('data-bbcode');
+            if (bbCode) {
+                navigator.clipboard.writeText(bbCode).then(() => {
+                    const originalText = this.copyBtn.innerHTML;
+                    this.copyBtn.innerHTML = '✅ BB-код скопирован!';
+                    setTimeout(() => {
+                        this.copyBtn.innerHTML = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    alert('❌ Ошибка копирования: ' + err);
+                });
+            }
+        }
+        
+        clearForm() {
+            if (this.fields.idField) this.fields.idField.value = '';
+            if (this.fields.teamField) {
+                this.fields.teamField.value = '';
+                this.fields.teamField.style.color = '#999';
+            }
+            if (this.fields.taskField) {
+                this.fields.taskField.value = '';
+                this.fields.taskField.style.color = '#999';
+            }
+            this.highlightEmptyFields(true);
+            this.updateResult();
+            
+            const originalText = this.clearBtn.innerHTML;
+            this.clearBtn.innerHTML = '✅ Очищено!';
             setTimeout(() => {
-                copyBtn.innerHTML = originalText;
-            }, 2000);
-        }).catch(err => {
-            alert('❌ Ошибка копирования: ' + err);
+                this.clearBtn.innerHTML = originalText;
+            }, 1500);
+        }
+        
+        highlightEmptyFields(removeOnly = false) {
+            const idValue = this.fields.idField?.value.trim() || '';
+            const teamValue = this.fields.teamField?.value || '';
+            
+            if (!removeOnly) {
+                if (this.fields.idField) {
+                    if (idValue === '') this.fields.idField.classList.add('error');
+                    else this.fields.idField.classList.remove('error');
+                }
+                if (this.fields.teamField) {
+                    if (teamValue === '') this.fields.teamField.classList.add('error');
+                    else this.fields.teamField.classList.remove('error');
+                }
+            } else {
+                if (this.fields.idField) this.fields.idField.classList.remove('error');
+                if (this.fields.teamField) this.fields.teamField.classList.remove('error');
+                if (this.fields.taskField) this.fields.taskField.classList.remove('error');
+            }
+        }
+    }
+    
+    // ========== ИНИЦИАЛИЗАЦИЯ ПЛАШЕК ==========
+    
+    // Плашка 1: Запись в отряд
+    const panel1 = document.querySelector('.accordion-item:first-child');
+    if (panel1) {
+        new AccordionForm(panel1, {
+            template: 'enlist',
+            fieldIds: {
+                idField: 'field1',
+                teamField: 'field2'
+            }
         });
     }
     
-    // Инициализация
-    updateResult();
-
-    const selectElement = document.getElementById('field2');
-    selectElement.style.color = '#999';
-
-    selectElement.addEventListener('change', function() {
-        if (this.value === '') {
-            this.style.color = '#999';
-        } else {
-            this.style.color = '#000';
-        }
-    });
-
-    // Функция очистки всех полей
-    function clearForm() {
-        // Очищаем поле ID
-        numberField.value = '';
-    
-        // Сбрасываем выбор команды
-        selectField.value = '';
-    
-        // Сбрасываем цвет select на серый
-        selectField.style.color = '#999';
-    
-        // Убираем подсветку ошибок
-        numberField.classList.remove('error');
-        selectField.classList.remove('error');
-    
-        // Обновляем результат
-        updateResult();
-    
-        // Визуальное уведомление
-        const clearBtn = document.getElementById('clearBtn');
-        const originalText = clearBtn.innerHTML;
-        clearBtn.innerHTML = '✅ Очищено!';
-        setTimeout(() => {
-            clearBtn.innerHTML = originalText;
-        }, 1500);
+    // Плашка 2: Запрос квеста
+    const panel2 = document.querySelector('.accordion-item:nth-child(2)');
+    if (panel2) {
+        // Меняем ID для второй плашки, чтобы не конфликтовали
+        const idInput = panel2.querySelector('#field1');
+        const teamSelect = panel2.querySelector('#field2');
+        const taskSelect = panel2.querySelector('#field3');
+        
+        if (idInput) idInput.id = 'field1_2';
+        if (teamSelect) teamSelect.id = 'field2_2';
+        if (taskSelect) taskSelect.id = 'field3_2';
+        
+        new AccordionForm(panel2, {
+            template: 'quest',
+            fieldIds: {
+                idField: 'field1_2',
+                teamField: 'field2_2',
+                taskField: 'field3_2'
+            }
+        });
     }
-    
 </script>
 </body>
 </html>
