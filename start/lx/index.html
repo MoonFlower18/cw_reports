@@ -36,26 +36,22 @@
             text-align: center;
         }
 
-        /* Две колонки */
         .two-columns {
             display: flex;
             gap: 30px;
             flex-wrap: wrap;
         }
 
-        /* Левая колонка - плашки (60%) */
         .accordion-section {
             flex: 2;
             min-width: 250px;
         }
 
-        /* Правая колонка - таблица (40%) */
         .sheet-section {
             flex: 1.5;
             min-width: 300px;
         }
 
-        /* Стили для раскрывающихся плашек */
         .accordion-item {
             margin-bottom: 15px;
             border: 1px solid #ddd;
@@ -63,7 +59,6 @@
             overflow: hidden;
         }
 
-        /* Заголовок плашки (кнопка) */
         .accordion-header {
             background-color: #f0f0f0;
             padding: 15px 20px;
@@ -80,7 +75,6 @@
             background-color: #e0e0e0;
         }
 
-        /* Маленький значок справа (+ / -) */
         .accordion-header::after {
             content: '+';
             position: absolute;
@@ -93,7 +87,6 @@
             content: '−';
         }
 
-        /* Содержимое плашки (скрыто по умолчанию) */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
@@ -102,16 +95,14 @@
         }
 
         .accordion-item.active .accordion-content {
-            max-height: 1000px; // если что, тут менять размер если не помещается
-            transition: max-height 0.5s ease-in-out; // тут скорость
+            max-height: 1000px;
+            transition: max-height 0.5s ease-in-out;
         }
 
-        /* Внутренний отступ для содержимого */
         .accordion-inner {
             padding: 20px;
         }
 
-        /* Поле внутри плашки (пока пустое) */
         .empty-field {
             min-height: 100px;
             border: 2px dashed #ccc;
@@ -124,7 +115,6 @@
             font-style: italic;
         }
 
-        /* Стили для области под Google Sheets */
         .sheet-container {
             background-color: #fafafa;
             border: 2px solid #007bff;
@@ -166,7 +156,6 @@
             font-size: 16px;
         }
 
-        /* Кнопка назад */
         .back-button {
             text-align: center;
             margin-top: 40px;
@@ -187,43 +176,40 @@
             background-color: #e0e0e0;
         }
 
-        /* Стили для разделения 60/40 внутри плашки */
         .split-layout {
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
-            align-items: stretch; /* Растягиваем колонки по высоте */
+            align-items: stretch;
         }
 
         .form-section {
-            flex: 1; /* 60% */
+            flex: 1;
             min-width: 200px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Распределяем содержимое */
+            justify-content: space-between;
         }
 
         .comment-section {
-            flex: 1; /* 40% */
+            flex: 1;
             min-width: 150px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Распределяем содержимое */
+            gap: 8px;
         }
 
-        /* Фиксируем высоту блока с результатом */
         .comment-section .result-comment {
             flex: 1;
             min-height: 120px;
         }
 
-        /* Кнопки на одной линии */
         .form-section .clear-button {
-            margin-top: auto; /* Прижимаем к низу */
+            margin-top: auto;
         }
 
         .comment-section .copy-button {
-            margin-top: auto; /* Прижимаем к низу */
+            margin-top: auto;
         }
 
         select.form-input {
@@ -232,10 +218,6 @@
 
         select.form-input option {
             color: #000;
-        }
-
-        select.form-input:not([multiple]) option:first-child {
-            color: #999;
         }
 
         .form-row {
@@ -264,7 +246,6 @@
             border-color: #007bff;
         }
 
-        /* Подсветка незаполненных полей */
         .form-input.error {
             border-color: #ff0000;
             background-color: #fff0f0;
@@ -281,7 +262,6 @@
             word-break: break-word;
         }
 
-        /* Стили для строки с полем ввода */
         .form-row-inline {
             display: flex;
             align-items: center;
@@ -299,7 +279,6 @@
             flex: 1;
         }
 
-        /* Кнопка очистки - такой же размер как кнопка копирования */
         .clear-button {
             background-color: #dc3545;
             color: white;
@@ -317,7 +296,6 @@
             background-color: #c82333;
         }
 
-        /* Кнопка копирования - полная ширина */
         .copy-button {
             background-color: #007bff;
             color: white;
@@ -334,41 +312,6 @@
             background-color: #0056b3;
         }
 
-        .comment-section {
-            flex: 1;
-            min-width: 150px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .comment-section .result-comment {
-            flex: 1;
-        }
-
-        /* Стили для предпросмотра BB-кода */
-        .result-comment code {
-            background: #f4f4f4;
-            padding: 8px;
-            display: block;
-            border-radius: 4px;
-            font-size: 12px;
-            font-family: monospace;
-            word-break: break-all;
-            white-space: pre-wrap;
-        }
-
-        .result-comment a {
-            color: #007bff;
-            text-decoration: none;
-            border-bottom: 1px dashed #007bff;
-        }
-
-        .result-comment a:hover {
-            text-decoration: underline;
-        }
-
-        /* Стиль для текста-предупреждения */
         .warning-text {
             background-color: #fff3cd;
             border-left: 4px solid #ffc107;
@@ -380,55 +323,101 @@
             margin-top: 5px;
         }
 
-        .warning-text::before {
-            content: "⚠️ ";
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
         }
 
-        /* Стиль для текста-инфы */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #007bff;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .small-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+
+        .small-button:hover {
+            background-color: #218838;
+        }
+
+        .remove-participant:hover {
+            background-color: #c82333 !important;
+        }
+
         .info-text {
-            background-color: #B0E0E6;
-            border-left: 4px solid #00BFFF;
-            padding: 10px 12px;
+            background-color: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 8px 12px;
             border-radius: 4px;
             font-size: 12px;
-            color: #856404;
-            text-align: left;
-            margin-top: 5px;
-        }
-
-        .info-text::before {
-            content: "ℹ ";
-        }
-
-
-        /* Адаптация для мобильных */
-        @media (max-width: 768px) {
-        .two-columns {
-            flex-direction: column;
-        }
-
-        .accordion-section, .sheet-section {
-            flex: auto;
-        }
-
-        .split-layout {
-           flex-direction: column;
-        }
-    
-        .form-row-inline {
-            flex-wrap: wrap;
-        }
-    
-        .form-row-inline .form-label {
+            color: #004085;
             width: 100%;
         }
-    
-        /* На мобильных убираем прижимание к низу */
-        .form-section .clear-button,
-        .comment-section .copy-button {
-            margin-top: 10px;
+
+        @media (max-width: 768px) {
+            .two-columns {
+                flex-direction: column;
+            }
+            .accordion-section, .sheet-section {
+                flex: auto;
+            }
+            .split-layout {
+                flex-direction: column;
+            }
+            .form-row-inline {
+                flex-wrap: wrap;
+            }
+            .form-row-inline .form-label {
+                width: 100%;
+            }
+            .form-section .clear-button,
+            .comment-section .copy-button {
+                margin-top: 10px;
+            }
         }
-    }
     </style>
 </head>
 <body>
@@ -437,24 +426,18 @@
     <h1>Шаблоны отчётов</h1>
 
     <div class="two-columns">
-        <!-- ЛЕВАЯ КОЛОНКА: Раскрывающиеся плашки -->
         <div class="accordion-section">
             <!-- Плашка 1 -->
             <div class="accordion-item">
-                <div class="accordion-header">
-                    Запись в отряд (для котят)
-                </div>
+                <div class="accordion-header">Запись в отряд (для котят)</div>
                 <div class="accordion-content">
                     <div class="accordion-inner">
-                        <!-- Две колонки 60/40 внутри плашки -->
                         <div class="split-layout">
-                            <!-- Левая часть: поля ввода -->
                             <div class="form-section">
                                 <div class="form-row-inline">
                                     <label class="form-label">Ваш ID:</label>
                                     <input type="text" class="form-input" id="field1" inputmode="numeric" pattern="[0-9]{1,7}" maxlength="7" placeholder="до 7 цифр">
                                 </div>
-    
                                 <div class="form-row-inline">
                                     <label class="form-label">Команда:</label>
                                     <select class="form-input" id="field2" style="background-color: white;"> 
@@ -464,18 +447,11 @@
                                         <option value="Лучики">Лучики</option>
                                     </select>
                                 </div>
-    
-                                <!-- Кнопка очистки под полями -->
-                                <button class="clear-button" id="clearBtn" onclick="clearForm()">🗑 Очистить всё</button>
+                                <button class="clear-button" id="clearBtn1">🗑 Очистить всё</button>
                             </div>
-
-                            <!-- Правая часть: комментарий + кнопка копирования -->
                             <div class="comment-section">
-                                <div class="result-comment" id="resultComment">
-                                    Результат будет отображён здесь
-                                </div>
-                                <!-- Кнопка копирования под предпросмотром -->
-                                <button class="copy-button" id="copyBtn" onclick="copyResult()">📋 Скопировать результат</button>
+                                <div class="result-comment" id="resultComment1">Результат будет отображён здесь</div>
+                                <button class="copy-button" id="copyBtn1">📋 Скопировать результат</button>
                             </div>
                         </div>
                     </div>
@@ -484,9 +460,7 @@
 
             <!-- Плашка 2 -->
             <div class="accordion-item">
-                <div class="accordion-header">
-                    Запрос квеста (для котят)
-                </div>
+                <div class="accordion-header">Запрос квеста (для котят)</div>
                 <div class="accordion-content">
                     <div class="accordion-inner">
                         <div class="split-layout">
@@ -495,7 +469,6 @@
                                     <label class="form-label">Ваш ID:</label>
                                     <input type="text" class="form-input" id="field1_2" inputmode="numeric" pattern="[0-9]{1,7}" maxlength="7" placeholder="до 7 цифр">
                                 </div>
-
                                 <div class="form-row-inline">
                                     <label class="form-label">Команда:</label>
                                     <select class="form-input" id="field2_2" style="background-color: white;"> 
@@ -505,31 +478,21 @@
                                         <option value="Лучики">Лучики</option>
                                     </select>
                                 </div>
-
                                 <div class="form-row-inline">
                                     <label class="form-label">Тип квеста:</label>
                                     <select class="form-input" id="field3_2" style="background-color: white;"> 
                                         <option value="" disabled selected hidden>– Выберите сложность –</option>
-                                        <option value="сёгкий">лёгкий</option>
+                                        <option value="лёгкий">лёгкий</option>
                                         <option value="средний">средний</option>
                                         <option value="сложный">сложный</option>
                                     </select>
                                 </div>
-                    
-                                <button class="clear-button">🗑 Очистить всё</button>
+                                <button class="clear-button" id="clearBtn2">🗑 Очистить всё</button>
                             </div>
-
                             <div class="comment-section">
-                                <div class="result-comment">
-                                    Результат будет отображён здесь
-                                </div>
-
-                                <!-- Текст-предупреждение -->
-                                <div class="warning-text">
-                                    Запрос отправляется лидеру команды в личные сообщения!
-                                </div>
-
-                                <button class="copy-button">📋 Скопировать результат</button>
+                                <div class="result-comment" id="resultComment2">Результат будет отображён здесь</div>
+                                <div class="warning-text">⚠️ Запрос отправляется лидеру команды в личные сообщения!</div>
+                                <button class="copy-button" id="copyBtn2">📋 Скопировать результат</button>
                             </div>
                         </div>
                     </div>
@@ -538,58 +501,95 @@
 
             <!-- Плашка 3 -->
             <div class="accordion-item">
-                <div class="accordion-header">
-                    Отчет о дозоре (для котят)
-                </div>
+                <div class="accordion-header">Отчет о дозоре (для котят)</div>
                 <div class="accordion-content">
                     <div class="accordion-inner">
-                        <!-- Две колонки 60/40 внутри плашки -->
                         <div class="split-layout">
-                            <!-- Левая часть: поля ввода -->
                             <div class="form-section">
-
-                                // сюда чекбокс "я ведущий" ползунок "да-нет"
+                                <div class="form-row-inline">
+                                    <label class="form-label" style="width: 100px;">Я ведущий:</label>
+                                    <label style="display: flex; align-items: center; gap: 15px;">
+                                        <span style="color: #555;">Нет</span>
+                                        <label class="switch">
+                                            <input type="checkbox" id="isLeader3">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <span style="color: #555;">Да</span>
+                                    </label>
+                                </div>
  
                                 <div class="form-row-inline">
                                     <div class="form-row" style="flex-wrap: wrap;">
-                                       <label class="form-label">Время :</label>
-                                       <div style="display: flex; align-items: center; gap: 8px; flex: 1; flex-wrap: wrap;">
-                                           <input type="text" class="form-input" id="field1_left" placeholder="от" style="flex: 1; min-width: 30px;">
-                                           <span style="color: #666; font-weight: 500; white-space: nowrap;"> → </span>
-                                           <input type="text" class="form-input" id="field1_right" placeholder="до" style="flex: 1; min-width: 30px;">
-                                       </div>
-                                    </div>
-                                </div>
-                                <div class="form-row-inline">
-                                    <div class="form-row" style="flex-wrap: wrap;">
-                                        <div class="info-text">
-                                            Дозор должен быть не менее 15 минут!
+                                        <label class="form-label">Время:</label>
+                                        <div style="display: flex; align-items: center; gap: 8px; flex: 1; flex-wrap: wrap;">
+                                            <input type="text" class="form-input" id="timeFrom3" placeholder="чч:мм" style="flex: 1; min-width: 30px;">
+                                            <span style="color: #666; font-weight: 500; white-space: nowrap;"> → </span>
+                                            <input type="text" class="form-input" id="timeTo3" placeholder="чч:мм" style="flex: 1; min-width: 30px;">
                                         </div>
                                     </div>
                                 </div>
 
-                                // если в чекбоксе "да", то тут показываем строку, в которой в ряд свободное поле для ввода ID до 7 цифр, выбор команды из списка и кнопка добавления новой записи, которая добавляет ещё 2 поля для ввода данных. Поля разположить друг под другом. Если выбрано "нет", то эта строка скрыта и не показывается вовсе. 
+                                <div class="form-row-inline">
+                                    <div class="info-text">⏱️ Дозор должен быть не менее 15 минут!</div>
+                                </div>
 
-                                // сюда чекбокс "нарушения" ползунок "есть-нет". Если выбрано "есть", то показывается форма для текста и кнопка загрузки фотографии с обязательным доп. полем для подтверждения загрузки. 
+                                <div id="patrolSection3" style="display: none;">
+                                    <div style="border-top: 1px solid #ddd; margin: 15px 0 10px; padding-top: 10px;">
+                                        <strong>👥 Состав дозора:</strong>
+                                    </div>
+                                    <div id="participantsContainer3">
+                                        <div class="participant-row" data-id="0">
+                                            <div style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
+                                                <input type="text" class="form-input" placeholder="ID (до 7 цифр)" style="flex: 1; min-width: 100px;" maxlength="7" inputmode="numeric">
+                                                <select class="form-input" style="flex: 1; background-color: white;">
+                                                    <option value="" disabled selected>– Команда –</option>
+                                                    <option value="Тучки">Тучки</option>
+                                                    <option value="Подсолнушки">Подсолнушки</option>
+                                                    <option value="Лучики">Лучики</option>
+                                                </select>
+                                                <button type="button" class="remove-participant" style="background: #dc3545; color: white; border: none; border-radius: 4px; padding: 8px 12px; cursor: pointer;">✖</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="addParticipant3" class="small-button" style="margin-bottom: 15px;">+ Добавить участника</button>
+                                </div>
 
+                                <div class="form-row-inline">
+                                    <label class="form-label" style="width: 100px;">Нарушения:</label>
+                                    <label style="display: flex; align-items: center; gap: 15px;">
+                                        <span style="color: #555;">Нет</span>
+                                        <label class="switch">
+                                            <input type="checkbox" id="hasViolations3">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <span style="color: #555;">Есть</span>
+                                    </label>
+                                </div>
+
+                                <div id="violationsSection3" style="display: none;">
+                                    <div style="border-top: 1px solid #ddd; margin: 15px 0 10px; padding-top: 10px;">
+                                        <strong>⚠️ Описание нарушений:</strong>
+                                    </div>
+                                    <textarea class="form-input" id="violationsText3" rows="3" placeholder="Опишите нарушения..."></textarea>
+                                    <div style="margin-top: 15px;">
+                                        <label class="form-label" style="width: auto;">📎 Фото нарушения:</label>
+                                        <input type="file" id="violationPhoto3" accept="image/*" style="margin-top: 8px; display: block;">
+                                        <div id="photoInfo3" style="margin-top: 10px; display: none;">
+                                            <label>
+                                                <input type="checkbox" id="photoConfirmed3"> 
+                                                Подтверждаю, что файл "<span id="photoName3"></span>" был загружен
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
     
-                                <!-- Кнопка очистки под полями -->
-                                <button class="clear-button" id="clearBtn" onclick="clearForm()">🗑 Очистить всё</button>
+                                <button class="clear-button" id="clearBtn3">🗑 Очистить всё</button>
                             </div>
 
-                            <!-- Правая часть: комментарий + кнопка копирования -->
                             <div class="comment-section">
-                                <div class="result-comment" id="resultComment">
-                                    Результат будет отображён здесь
-                                </div>
-                                <!-- Кнопка копирования под предпросмотром -->
-
-                                <!-- Текст-предупреждение -->
-                                <div class="warning-text">
-                                    Запрос отправляется лидеру команды в личные сообщения!
-                                </div>
-
-                                <button class="copy-button" id="copyBtn" onclick="copyResult()">📋 Скопировать результат</button>
+                                <div class="result-comment" id="resultComment3">Результат будет отображён здесь</div>
+                                <div class="warning-text">⚠️ Запрос отправляется лидеру команды в личные сообщения!</div>
+                                <button class="copy-button" id="copyBtn3">📋 Скопировать результат</button>
                             </div>
                         </div>
                     </div>
@@ -597,20 +597,13 @@
             </div>
         </div>
 
-        <!-- ПРАВАЯ КОЛОНКА: Область под таблицу Google Sheets -->
         <div class="sheet-section">
             <div class="sheet-container">
-                <div class="sheet-header">
-                    Данные из Google Sheets
-                </div>
+                <div class="sheet-header">Данные из Google Sheets</div>
                 <div class="sheet-content">
                     <div class="placeholder-text">
-                        <p> Здесь будет таблица из Google Sheets</p>
+                        <p>Здесь будет таблица из Google Sheets</p>
                         <p>— Место для интеграции с Google Sheets API —</p>
-                        <p><small>После получения доступа к таблице, здесь отобразится интерактивная таблица</small></p>
-                        <!-- КОММЕНТАРИЙ: Сюда будет встроена таблица Google Sheets -->
-                        <!-- КОММЕНТАРИЙ: Для интеграции нужно будет добавить JavaScript код с использованием Google Sheets API -->
-                        <!-- КОММЕНТАРИЙ: Или использовать готовые решения: Tabletop.js, Sheet.best, или iframe от Google -->
                     </div>
                 </div>
             </div>
@@ -624,23 +617,18 @@
 
 <script>
     // ========== УНИВЕРСАЛЬНЫЕ ФУНКЦИИ ==========
-    
-    // Раскрывающиеся плашки
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', function() {
-            const accordionItem = this.parentElement;
-            accordionItem.classList.toggle('active');
+            this.parentElement.classList.toggle('active');
         });
     });
-    
-    // Функция для экранирования HTML
+
     function escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
-    
-    // Функция для рендеринга BB-кода в HTML
+
     function renderBBCode(bbCode) {
         let html = bbCode;
         html = html.replace(/\[link(\d+)\]/g, '<a href="#" style="color: #007bff; text-decoration: none; border-bottom: 1px dashed #007bff;">профиль $1</a>');
@@ -649,262 +637,283 @@
         html = html.replace(/\[u\](.*?)\[\/u\]/g, '<u>$1</u>');
         return html;
     }
-    
-    // Функция для склонения названий команд
+
     function declineTeamName(teamName) {
         const declensions = {
             'Тучки': 'Тучек',
-            'Подсолнушки': 'Подсолнушков',
+            'Подсолнушки': 'Подсолнушек',
             'Лучики': 'Лучиков'
         };
         return declensions[teamName] || teamName;
     }
-    
-    // ========== КЛАСС ДЛЯ УПРАВЛЕНИЯ ПЛАШКОЙ ==========
-    class AccordionForm {
-        constructor(container, config) {
-            this.container = container;
-            this.config = config;
-            this.init();
-        }
-        
-        init() {
-            // Находим все поля по ID
-            this.fields = {};
-            for (const [key, id] of Object.entries(this.config.fieldIds)) {
-                this.fields[key] = this.container.querySelector(`#${id}`);
-            }
-            
-            // Находим элементы результата
-            this.resultComment = this.container.querySelector('.result-comment');
-            this.copyBtn = this.container.querySelector('.copy-button');
-            this.clearBtn = this.container.querySelector('.clear-button');
-            
-            // Добавляем обработчики
-            if (this.fields.idField) {
-                this.fields.idField.addEventListener('input', (e) => this.enforceNumericInput(e));
-                this.fields.idField.addEventListener('blur', () => this.handleIdBlur());
-            }
-            
-            if (this.fields.teamField) {
-                this.fields.teamField.addEventListener('change', () => this.updateResult());
-                this.fields.teamField.style.color = '#999';
-                this.fields.teamField.addEventListener('change', function() {
-                    this.style.color = this.value === '' ? '#999' : '#000';
-                });
-            }
-            
-            if (this.fields.taskField) {
-                this.fields.taskField.addEventListener('change', () => this.updateResult());
-                this.fields.taskField.style.color = '#999';
-                this.fields.taskField.addEventListener('change', function() {
-                    this.style.color = this.value === '' ? '#999' : '#000';
-                });
-            }
-            
-            // Кнопка копирования
-            if (this.copyBtn) {
-                this.copyBtn.onclick = () => this.copyResult();
-            }
-            
-            // Кнопка очистки
-            if (this.clearBtn) {
-                this.clearBtn.onclick = () => this.clearForm();
-            }
-            
-            // Инициализация
-            this.updateResult();
-        }
-        
-        enforceNumericInput(e) {
-            const input = e.target;
-            let rawValue = input.value;
-            let filtered = rawValue.replace(/\D/g, '');
-            if (filtered.length > 7) {
-                filtered = filtered.slice(0, 7);
-            }
-            if (filtered !== rawValue) {
-                input.value = filtered;
-            }
-            this.updateResult();
-        }
-        
-        handleIdBlur() {
-            let clean = this.fields.idField.value.replace(/\D/g, '');
-            if (clean.length > 7) clean = clean.slice(0, 7);
-            if (clean !== this.fields.idField.value) this.fields.idField.value = clean;
-            this.updateResult();
-        }
-        
-        updateResult() {
-            const idValue = this.fields.idField?.value || '___';
-            const teamValue = this.fields.teamField?.value || '___';
+
+    // ========== ПЛАШКА 1 ==========
+    const panel1 = document.querySelector('#clearBtn1')?.closest('.accordion-item');
+    if (panel1) {
+        const idField = panel1.querySelector('#field1');
+        const teamField = panel1.querySelector('#field2');
+        const resultDiv = panel1.querySelector('#resultComment1');
+        const copyBtn = panel1.querySelector('#copyBtn1');
+        const clearBtn = panel1.querySelector('#clearBtn1');
+
+        function updatePanel1() {
+            const idValue = idField.value || '___';
+            const teamValue = teamField.value || '___';
             const declinedTeam = teamValue ? declineTeamName(teamValue) : '___';
-            const taskValue = this.fields.taskField?.value || '___';
-            
-            let bbCode = '';
-            
-            // Генерируем BB-код по шаблону из конфига
-            if (this.config.template === 'enlist') {
-                bbCode = `Я, [link${idValue}] (${idValue}), хочу стать жителем Лучезарного Хуторка и принять участие в команде ${declinedTeam}`;
-            } 
-            else if (this.config.template === 'quest') {
-                bbCode = `Я, [link${idValue}] (${idValue}), являюсь игроком команды ${declinedTeam} и прошу выдать мне ${taskValue} квест`;
-            }
-            
-            // Обновляем отображение
-            if (this.resultComment) {
-                this.resultComment.innerHTML = `
-                    <div style="margin-bottom: 10px;">
-                        <strong>📝 BB-код для копирования:</strong><br>
-                        <code style="background: #fff; padding: 8px; display: block; border-radius: 4px; font-size: 12px; word-break: break-all;">${escapeHtml(bbCode)}</code>
-                    </div>
-                    <div style="border-top: 1px solid #ddd; padding-top: 10px; margin-top: 5px;">
-                        <strong>👀 Как это будет выглядеть на сайте:</strong><br>
-                        <div style="background: white; padding: 10px; border-radius: 4px; margin-top: 5px; font-style: normal;">
-                            ${renderBBCode(bbCode)}
-                        </div>
-                    </div>
-                `;
-                this.resultComment.setAttribute('data-bbcode', bbCode);
-            }
+            const bbCode = `Я, [link${idValue}] (${idValue}), хочу стать жителем Лучезарного Хуторка и принять участие в команде ${declinedTeam}`;
+            resultDiv.innerHTML = `<div style="margin-bottom: 10px;"><strong>📝 BB-код для копирования:</strong><br><code>${escapeHtml(bbCode)}</code></div>
+                <div><strong>👀 Предпросмотр:</strong><br>${renderBBCode(bbCode)}</div>`;
+            resultDiv.setAttribute('data-bbcode', bbCode);
         }
-        
-        copyResult() {
-            const idValue = this.fields.idField?.value.trim() || '';
-            const teamValue = this.fields.teamField?.value || '';
-            const taskValue = this.fields.taskField?.value || '';
+
+        idField.addEventListener('input', () => {
+            idField.value = idField.value.replace(/\D/g, '').slice(0, 7);
+            updatePanel1();
+        });
+        teamField.addEventListener('change', updatePanel1);
+        teamField.style.color = '#999';
+        teamField.addEventListener('change', function() { this.style.color = this.value ? '#000' : '#999'; });
+
+        copyBtn.onclick = () => {
+            if (!idField.value.trim()) return alert('⚠️ Введите ID');
+            if (!teamField.value) return alert('⚠️ Выберите команду');
+            navigator.clipboard.writeText(resultDiv.getAttribute('data-bbcode'));
+            copyBtn.innerHTML = '✅ Скопировано!';
+            setTimeout(() => copyBtn.innerHTML = '📋 Скопировать результат', 2000);
+        };
+
+        clearBtn.onclick = () => {
+            idField.value = '';
+            teamField.value = '';
+            teamField.style.color = '#999';
+            updatePanel1();
+            clearBtn.innerHTML = '✅ Очищено!';
+            setTimeout(() => clearBtn.innerHTML = '🗑 Очистить всё', 1500);
+        };
+        updatePanel1();
+    }
+
+    // ========== ПЛАШКА 2 ==========
+    const panel2 = document.querySelector('#clearBtn2')?.closest('.accordion-item');
+    if (panel2) {
+        const idField = panel2.querySelector('#field1_2');
+        const teamField = panel2.querySelector('#field2_2');
+        const taskField = panel2.querySelector('#field3_2');
+        const resultDiv = panel2.querySelector('#resultComment2');
+        const copyBtn = panel2.querySelector('#copyBtn2');
+        const clearBtn = panel2.querySelector('#clearBtn2');
+
+        function updatePanel2() {
+            const idValue = idField.value || '___';
+            const teamValue = teamField.value || '___';
+            const taskValue = taskField.value || '___';
+            const declinedTeam = teamValue ? declineTeamName(teamValue) : '___';
+            const bbCode = `Я, [link${idValue}] (${idValue}), являюсь игроком команды ${declinedTeam} и прошу выдать мне ${taskValue} квест`;
+            resultDiv.innerHTML = `<div style="margin-bottom: 10px;"><strong>📝 BB-код для копирования:</strong><br><code>${escapeHtml(bbCode)}</code></div>
+                <div><strong>👀 Предпросмотр:</strong><br>${renderBBCode(bbCode)}</div>`;
+            resultDiv.setAttribute('data-bbcode', bbCode);
+        }
+
+        [idField, teamField, taskField].forEach(field => {
+            if (field) field.addEventListener('input', updatePanel2);
+            if (field) field.addEventListener('change', updatePanel2);
+        });
+        teamField.style.color = '#999';
+        teamField.addEventListener('change', function() { this.style.color = this.value ? '#000' : '#999'; });
+        taskField.style.color = '#999';
+        taskField.addEventListener('change', function() { this.style.color = this.value ? '#000' : '#999'; });
+
+        copyBtn.onclick = () => {
+            if (!idField.value.trim()) return alert('⚠️ Введите ID');
+            if (!teamField.value) return alert('⚠️ Выберите команду');
+            if (!taskField.value) return alert('⚠️ Выберите тип квеста');
+            navigator.clipboard.writeText(resultDiv.getAttribute('data-bbcode'));
+            copyBtn.innerHTML = '✅ Скопировано!';
+            setTimeout(() => copyBtn.innerHTML = '📋 Скопировать результат', 2000);
+        };
+
+        clearBtn.onclick = () => {
+            idField.value = '';
+            teamField.value = '';
+            taskField.value = '';
+            teamField.style.color = '#999';
+            taskField.style.color = '#999';
+            updatePanel2();
+            clearBtn.innerHTML = '✅ Очищено!';
+            setTimeout(() => clearBtn.innerHTML = '🗑 Очистить всё', 1500);
+        };
+        updatePanel2();
+    }
+
+    // ========== ПЛАШКА 3 ==========
+    const panel3 = document.querySelector('#clearBtn3')?.closest('.accordion-item');
+    if (panel3) {
+        const isLeaderCheck = panel3.querySelector('#isLeader3');
+        const patrolSection = panel3.querySelector('#patrolSection3');
+        const participantsContainer = panel3.querySelector('#participantsContainer3');
+        const addParticipantBtn = panel3.querySelector('#addParticipant3');
+        const hasViolationsCheck = panel3.querySelector('#hasViolations3');
+        const violationsSection = panel3.querySelector('#violationsSection3');
+        const violationsText = panel3.querySelector('#violationsText3');
+        const violationPhoto = panel3.querySelector('#violationPhoto3');
+        const photoInfo = panel3.querySelector('#photoInfo3');
+        const photoName = panel3.querySelector('#photoName3');
+        const photoConfirmed = panel3.querySelector('#photoConfirmed3');
+        const timeFrom = panel3.querySelector('#timeFrom3');
+        const timeTo = panel3.querySelector('#timeTo3');
+        const resultDiv = panel3.querySelector('#resultComment3');
+        const copyBtn = panel3.querySelector('#copyBtn3');
+        const clearBtn = panel3.querySelector('#clearBtn3');
+
+        let participantCount = 1;
+
+        function updateReport3() {
+            const isLeader = isLeaderCheck.checked;
+            const timeFromVal = timeFrom.value || '—';
+            const timeToVal = timeTo.value || '—';
             
-            // Проверки в зависимости от шаблона
-            if (this.config.template === 'enlist') {
-                if (idValue === '') {
-                    alert('⚠️ Ошибка: Поле "Ваш ID" не заполнено!');
-                    this.fields.idField?.focus();
-                    this.highlightEmptyFields();
-                    return;
-                }
-                if (teamValue === '') {
-                    alert('⚠️ Ошибка: Поле "Команда" не выбрано!');
-                    this.fields.teamField?.focus();
-                    this.highlightEmptyFields();
-                    return;
-                }
-            }
-            else if (this.config.template === 'quest') {
-                if (idValue === '') {
-                    alert('⚠️ Ошибка: Поле "Ваш ID" не заполнено!');
-                    this.fields.idField?.focus();
-                    this.highlightEmptyFields();
-                    return;
-                }
-                if (teamValue === '') {
-                    alert('⚠️ Ошибка: Поле "Команда" не выбрано!');
-                    this.fields.teamField?.focus();
-                    this.highlightEmptyFields();
-                    return;
-                }
-                if (taskValue === '') {
-                    alert('⚠️ Ошибка: Поле "Тип квеста" не выбрано!');
-                    this.fields.taskField?.focus();
-                    this.highlightEmptyFields();
-                    return;
-                }
-            }
+            let report = `📋 <strong>Отчет о дозоре</strong><br><br>`;
+            report += `⏰ Время дозора: ${timeFromVal} → ${timeToVal}<br>`;
             
-            const bbCode = this.resultComment?.getAttribute('data-bbcode');
-            if (bbCode) {
-                navigator.clipboard.writeText(bbCode).then(() => {
-                    const originalText = this.copyBtn.innerHTML;
-                    this.copyBtn.innerHTML = '✅ BB-код скопирован!';
-                    setTimeout(() => {
-                        this.copyBtn.innerHTML = originalText;
-                    }, 2000);
-                }).catch(err => {
-                    alert('❌ Ошибка копирования: ' + err);
+            if (isLeader) {
+                const participants = [];
+                const rows = participantsContainer.querySelectorAll('.participant-row');
+                rows.forEach(row => {
+                    const idInput = row.querySelector('input[placeholder*="ID"]');
+                    const teamSelect = row.querySelector('select');
+                    if (idInput && idInput.value) {
+                        participants.push(`ID ${idInput.value} (${teamSelect.value || '?'})`);
+                    }
                 });
+                report += participants.length ? `👥 Состав: ${participants.join(', ')}<br>` : `👥 Состав: (не указан)<br>`;
+            } else {
+                report += `👥 Роль: участник дозора<br>`;
             }
-        }
-        
-        clearForm() {
-            if (this.fields.idField) this.fields.idField.value = '';
-            if (this.fields.teamField) {
-                this.fields.teamField.value = '';
-                this.fields.teamField.style.color = '#999';
-            }
-            if (this.fields.taskField) {
-                this.fields.taskField.value = '';
-                this.fields.taskField.style.color = '#999';
-            }
-            this.highlightEmptyFields(true);
-            this.updateResult();
             
-            const originalText = this.clearBtn.innerHTML;
-            this.clearBtn.innerHTML = '✅ Очищено!';
-            setTimeout(() => {
-                this.clearBtn.innerHTML = originalText;
-            }, 1500);
-        }
-        
-        highlightEmptyFields(removeOnly = false) {
-            const idValue = this.fields.idField?.value.trim() || '';
-            const teamValue = this.fields.teamField?.value || '';
-            const taskValue = this.fields.taskField?.value || '';
-            
-            if (!removeOnly) {
-                if (this.fields.idField) {
-                    if (idValue === '') this.fields.idField.classList.add('error');
-                    else this.fields.idField.classList.remove('error');
-                }
-                if (this.fields.teamField) {
-                    if (teamValue === '') this.fields.teamField.classList.add('error');
-                    else this.fields.teamField.classList.remove('error');
-                }
-                if (this.fields.taskField) {
-                    if (taskValue === '') this.fields.taskField.classList.add('error');
-                    else this.fields.taskField.classList.remove('error');
+            const hasViolations = hasViolationsCheck.checked;
+            if (hasViolations) {
+                const violationDesc = violationsText.value.trim() || '—';
+                const hasPhoto = violationPhoto?.files?.length > 0;
+                const isPhotoConfirmed = photoConfirmed?.checked || false;
+                report += `⚠️ Нарушения: есть<br>`;
+                report += `📝 Описание: ${violationDesc}<br>`;
+                if (hasPhoto) {
+                    report += `📸 Файл: ${violationPhoto.files[0].name} (${isPhotoConfirmed ? 'подтверждён ✓' : 'не подтверждён'})<br>`;
                 }
             } else {
-                if (this.fields.idField) this.fields.idField.classList.remove('error');
-                if (this.fields.teamField) this.fields.teamField.classList.remove('error');
-                if (this.fields.taskField) this.fields.taskField.classList.remove('error');
+                report += `✅ Нарушений не зафиксировано<br>`;
             }
+            
+            resultDiv.innerHTML = report;
+            resultDiv.setAttribute('data-report', report);
         }
-    }
-    
-    // ========== ИНИЦИАЛИЗАЦИЯ ПЛАШЕК ==========
-    
-    // Плашка 1: Запись в отряд
-    const panel1 = document.querySelector('.accordion-item:first-child');
-    if (panel1) {
-        new AccordionForm(panel1, {
-            template: 'enlist',
-            fieldIds: {
-                idField: 'field1',
-                teamField: 'field2'
-            }
+
+        isLeaderCheck.addEventListener('change', () => {
+            patrolSection.style.display = isLeaderCheck.checked ? 'block' : 'none';
+            updateReport3();
         });
-    }
-    
-    // Плашка 2: Запрос квеста
-    const panel2 = document.querySelector('.accordion-item:nth-child(2)');
-    if (panel2) {
-        // Меняем ID для второй плашки, чтобы не конфликтовали
-        const idInput = panel2.querySelector('#field1');
-        const teamSelect = panel2.querySelector('#field2');
-        const taskSelect = panel2.querySelector('#field3');
-        
-        if (idInput) idInput.id = 'field1_2';
-        if (teamSelect) teamSelect.id = 'field2_2';
-        if (taskSelect) taskSelect.id = 'field3_2';
-        
-        new AccordionForm(panel2, {
-            template: 'quest',
-            fieldIds: {
-                idField: 'field1_2',
-                teamField: 'field2_2',
-                taskField: 'field3_2'
-            }
+
+        hasViolationsCheck.addEventListener('change', () => {
+            violationsSection.style.display = hasViolationsCheck.checked ? 'block' : 'none';
+            updateReport3();
         });
+
+        function addParticipantRow() {
+            const newRow = document.createElement('div');
+            newRow.className = 'participant-row';
+            newRow.setAttribute('data-id', participantCount++);
+            newRow.innerHTML = `<div style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
+                <input type="text" class="form-input" placeholder="ID (до 7 цифр)" style="flex: 1; min-width: 100px;" maxlength="7" inputmode="numeric">
+                <select class="form-input" style="flex: 1; background-color: white;">
+                    <option value="" disabled selected>– Команда –</option>
+                    <option value="Тучки">Тучки</option>
+                    <option value="Подсолнушки">Подсолнушки</option>
+                    <option value="Лучики">Лучики</option>
+                </select>
+                <button type="button" class="remove-participant" style="background: #dc3545; color: white; border: none; border-radius: 4px; padding: 8px 12px; cursor: pointer;">✖</button>
+            </div>`;
+            participantsContainer.appendChild(newRow);
+            newRow.querySelector('.remove-participant').onclick = () => { newRow.remove(); updateReport3(); };
+            newRow.querySelectorAll('input, select').forEach(el => {
+                el.addEventListener('input', updateReport3);
+                el.addEventListener('change', updateReport3);
+            });
+            updateReport3();
+        }
+
+        addParticipantBtn.addEventListener('click', addParticipantRow);
+
+        if (violationPhoto) {
+            violationPhoto.addEventListener('change', function(e) {
+                if (e.target.files[0]) {
+                    photoName.textContent = e.target.files[0].name;
+                    photoInfo.style.display = 'block';
+                    if (photoConfirmed) photoConfirmed.checked = true;
+                } else {
+                    photoInfo.style.display = 'none';
+                    if (photoConfirmed) photoConfirmed.checked = false;
+                }
+                updateReport3();
+            });
+        }
+
+        [timeFrom, timeTo, violationsText, photoConfirmed].forEach(el => {
+            if (el) el.addEventListener('input', updateReport3);
+            if (el && el.type === 'checkbox') el.addEventListener('change', updateReport3);
+        });
+
+        const firstRow = participantsContainer.querySelector('.participant-row');
+        if (firstRow) {
+            firstRow.querySelectorAll('input, select').forEach(el => {
+                el.addEventListener('input', updateReport3);
+                el.addEventListener('change', updateReport3);
+            });
+            firstRow.querySelector('.remove-participant').onclick = () => {
+                if (participantsContainer.children.length > 1) {
+                    firstRow.remove();
+                    updateReport3();
+                } else {
+                    alert('Должен быть хотя бы один участник!');
+                }
+            };
+        }
+
+        copyBtn.onclick = () => {
+            const report = resultDiv.getAttribute('data-report');
+            if (report) {
+                navigator.clipboard.writeText(report.replace(/<[^>]*>/g, ''));
+                copyBtn.innerHTML = '✅ Отчёт скопирован!';
+                setTimeout(() => copyBtn.innerHTML = '📋 Скопировать результат', 2000);
+            }
+        };
+
+        clearBtn.onclick = () => {
+            isLeaderCheck.checked = false;
+            patrolSection.style.display = 'none';
+            hasViolationsCheck.checked = false;
+            violationsSection.style.display = 'none';
+            timeFrom.value = '';
+            timeTo.value = '';
+            violationsText.value = '';
+            if (violationPhoto) violationPhoto.value = '';
+            if (photoInfo) photoInfo.style.display = 'none';
+            if (photoConfirmed) photoConfirmed.checked = false;
+            
+            const rows = participantsContainer.querySelectorAll('.participant-row');
+            for (let i = 1; i < rows.length; i++) rows[i].remove();
+            const firstRowEl = rows[0];
+            if (firstRowEl) {
+                const firstId = firstRowEl.querySelector('input[placeholder*="ID"]');
+                const firstTeam = firstRowEl.querySelector('select');
+                if (firstId) firstId.value = '';
+                if (firstTeam) firstTeam.value = '';
+            }
+            updateReport3();
+            clearBtn.innerHTML = '✅ Очищено!';
+            setTimeout(() => clearBtn.innerHTML = '🗑 Очистить всё', 1500);
+        };
+        
+        updateReport3();
     }
 </script>
 </body>
