@@ -339,7 +339,7 @@
             min-width: 150px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 8px;
         }
 
         .comment-section .result-comment {
@@ -366,6 +366,38 @@
 
         .result-comment a:hover {
             text-decoration: underline;
+        }
+
+        /* Стиль для текста-предупреждения */
+        .warning-text {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #856404;
+            text-align: left;
+            margin-top: 5px;
+        }
+
+        .warning-text::before {
+            content: "⚠️ ";
+        }
+
+        /* Стиль для текста-инфы */
+        .info-text {
+            background-color: #B0E0E6;
+            border-left: 4px solid #00BFFF;
+            padding: 10px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #856404;
+            text-align: left;
+            margin-top: 5px;
+        }
+
+        .info-text::before {
+            content: "ℹ ";
         }
 
 
@@ -402,7 +434,7 @@
 <body>
 
 <div class="container">
-    <h1>Разделы информации</h1>
+    <h1>Шаблоны отчётов</h1>
 
     <div class="two-columns">
         <!-- ЛЕВАЯ КОЛОНКА: Раскрывающиеся плашки -->
@@ -410,7 +442,7 @@
             <!-- Плашка 1 -->
             <div class="accordion-item">
                 <div class="accordion-header">
-                    Запись в отряд
+                    Запись в отряд (для котят)
                 </div>
                 <div class="accordion-content">
                     <div class="accordion-inner">
@@ -453,7 +485,7 @@
             <!-- Плашка 2 -->
             <div class="accordion-item">
                 <div class="accordion-header">
-                    Запрос квеста в ЛС лидера
+                    Запрос квеста (для котят)
                 </div>
                 <div class="accordion-content">
                     <div class="accordion-inner">
@@ -478,9 +510,9 @@
                                     <label class="form-label">Тип квеста:</label>
                                     <select class="form-input" id="field3_2" style="background-color: white;"> 
                                         <option value="" disabled selected hidden>– Выберите сложность –</option>
-                                        <option value="Лёгкий">Лёгкий</option>
-                                        <option value="Средний">Средний</option>
-                                        <option value="Тяжёлый">Тяжёлый</option>
+                                        <option value="сёгкий">лёгкий</option>
+                                        <option value="средний">средний</option>
+                                        <option value="сложный">сложный</option>
                                     </select>
                                 </div>
                     
@@ -491,6 +523,12 @@
                                 <div class="result-comment">
                                     Результат будет отображён здесь
                                 </div>
+
+                                <!-- Текст-предупреждение -->
+                                <div class="warning-text">
+                                    Запрос отправляется лидеру команды в личные сообщения!
+                                </div>
+
                                 <button class="copy-button">📋 Скопировать результат</button>
                             </div>
                         </div>
@@ -501,26 +539,59 @@
             <!-- Плашка 3 -->
             <div class="accordion-item">
                 <div class="accordion-header">
-                    Раздел 3
+                    Отчет о дозоре (для котят)
                 </div>
                 <div class="accordion-content">
                     <div class="accordion-inner">
-                        <div class="empty-field">
-                            [Пустое поле для контента раздела 3]
-                        </div>
-                        <!-- КОММЕНТАРИЙ: Сюда можно добавить любой контент для раздела 3 
+                        <!-- Две колонки 60/40 внутри плашки -->
+                        <div class="split-layout">
+                            <!-- Левая часть: поля ввода -->
+                            <div class="form-section">
 
-
-<div class="form-row" style="flex-wrap: wrap;">
-                                    <label class="form-label">Диапазон:</label>
-                                    <div style="display: flex; align-items: center; gap: 8px; flex: 1; flex-wrap: wrap;">
-                                        <input type="text" class="form-input" id="field3_left" placeholder="от" style="flex: 1; min-width: 60px;">
-                                        <span style="color: #666; font-weight: 500; white-space: nowrap;">→ до →</span>
-                                        <input type="text" class="form-input" id="field3_right" placeholder="до" style="flex: 1; min-width: 60px;">
+                                // сюда чекбокс "я ведущий" ползунок "да-нет"
+ 
+                                <div class="form-row-inline">
+                                    <div class="form-row" style="flex-wrap: wrap;">
+                                       <label class="form-label">Время :</label>
+                                       <div style="display: flex; align-items: center; gap: 8px; flex: 1; flex-wrap: wrap;">
+                                           <input type="text" class="form-input" id="field1_left" placeholder="от" style="flex: 1; min-width: 30px;">
+                                           <span style="color: #666; font-weight: 500; white-space: nowrap;"> → </span>
+                                           <input type="text" class="form-input" id="field1_right" placeholder="до" style="flex: 1; min-width: 30px;">
+                                       </div>
                                     </div>
-                                </div> 
+                                </div>
+                                <div class="form-row-inline">
+                                    <div class="form-row" style="flex-wrap: wrap;">
+                                        <div class="info-text">
+                                            Дозор должен быть не менее 15 минут!
+                                        </div>
+                                    </div>
+                                </div>
 
--->
+                                // если в чекбоксе "да", то тут показываем строку, в которой в ряд свободное поле для ввода ID до 7 цифр, выбор команды из списка и кнопка добавления новой записи, которая добавляет ещё 2 поля для ввода данных. Поля разположить друг под другом. Если выбрано "нет", то эта строка скрыта и не показывается вовсе. 
+
+                                // сюда чекбокс "нарушения" ползунок "есть-нет". Если выбрано "есть", то показывается форма для текста и кнопка загрузки фотографии с обязательным доп. полем для подтверждения загрузки. 
+
+    
+                                <!-- Кнопка очистки под полями -->
+                                <button class="clear-button" id="clearBtn" onclick="clearForm()">🗑 Очистить всё</button>
+                            </div>
+
+                            <!-- Правая часть: комментарий + кнопка копирования -->
+                            <div class="comment-section">
+                                <div class="result-comment" id="resultComment">
+                                    Результат будет отображён здесь
+                                </div>
+                                <!-- Кнопка копирования под предпросмотром -->
+
+                                <!-- Текст-предупреждение -->
+                                <div class="warning-text">
+                                    Запрос отправляется лидеру команды в личные сообщения!
+                                </div>
+
+                                <button class="copy-button" id="copyBtn" onclick="copyResult()">📋 Скопировать результат</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -583,7 +654,7 @@
     function declineTeamName(teamName) {
         const declensions = {
             'Тучки': 'Тучек',
-            'Подсолнушки': 'Подсолнушек',
+            'Подсолнушки': 'Подсолнушков',
             'Лучики': 'Лучиков'
         };
         return declensions[teamName] || teamName;
@@ -666,19 +737,19 @@
         }
         
         updateResult() {
-            const idValue = this.fields.idField?.value || '?';
-            const teamValue = this.fields.teamField?.value || '';
-            const taskValue = this.fields.taskField?.value || '';
+            const idValue = this.fields.idField?.value || '___';
+            const teamValue = this.fields.teamField?.value || '___';
+            const declinedTeam = teamValue ? declineTeamName(teamValue) : '___';
+            const taskValue = this.fields.taskField?.value || '___';
             
             let bbCode = '';
             
             // Генерируем BB-код по шаблону из конфига
             if (this.config.template === 'enlist') {
-                const declinedTeam = teamValue ? declineTeamName(teamValue) : '?';
                 bbCode = `Я, [link${idValue}] (${idValue}), хочу стать жителем Лучезарного Хуторка и принять участие в команде ${declinedTeam}`;
             } 
             else if (this.config.template === 'quest') {
-                bbCode = `Я, [link${idValue}] (${idValue}), хочу взять ${taskValue} квест у лидера команды ${teamValue}`;
+                bbCode = `Я, [link${idValue}] (${idValue}), являюсь игроком команды ${declinedTeam} и прошу выдать мне ${taskValue} квест`;
             }
             
             // Обновляем отображение
@@ -777,6 +848,7 @@
         highlightEmptyFields(removeOnly = false) {
             const idValue = this.fields.idField?.value.trim() || '';
             const teamValue = this.fields.teamField?.value || '';
+            const taskValue = this.fields.taskField?.value || '';
             
             if (!removeOnly) {
                 if (this.fields.idField) {
@@ -786,6 +858,10 @@
                 if (this.fields.teamField) {
                     if (teamValue === '') this.fields.teamField.classList.add('error');
                     else this.fields.teamField.classList.remove('error');
+                }
+                if (this.fields.taskField) {
+                    if (taskValue === '') this.fields.taskField.classList.add('error');
+                    else this.fields.taskField.classList.remove('error');
                 }
             } else {
                 if (this.fields.idField) this.fields.idField.classList.remove('error');
